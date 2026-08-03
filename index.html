@@ -4,48 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matheus Capelo | Portfólio</title>
+    <meta name="description" content="Portfólio de Matheus Maximilian Capelo — automações e aplicativos desktop em Python para rotinas contábeis, fiscais e de departamento pessoal.>
 
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            margin:0;
-            background:#111;
-            color:white;
-            text-align:center;
+        :root{
+            --bg:#111;
+            --card:#1c1c1c;
+            --card-hover:#232323;
+            --line:#2e2e2e;
+            --text:#f2f2f2;
+            --muted:#a1a1aa;
+            --accent:#2563eb;
+            --accent-soft:rgba(37,99,235,.15);
         }
+
+        *{box-sizing:border-box;}
+
+        body{
+            font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            line-height:1.6;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        .wrap{
+            max-width:1000px;
+            margin:0 auto;
+            padding:0 20px;
+        }
+
+        /* ---------- Header ---------- */
 
         header{
-            padding:80px 20px;
+            padding:90px 20px 70px;
+            text-align:center;
+            border-bottom:1px solid var(--line);
         }
 
-        h1{
+        header h1{
             font-size:3rem;
+            margin:0 0 10px;
+            letter-spacing:-1px;
         }
 
-        p{
-            font-size:1.2rem;
+        header .role{
+            font-size:1.15rem;
+            color:var(--muted);
+            margin:0 auto 8px;
+            max-width:640px;
+        }
+
+        header .tagline{
+            font-size:1rem;
+            color:var(--muted);
+            max-width:640px;
+            margin:0 auto;
+        }
+
+        .actions{
+            margin-top:28px;
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            flex-wrap:wrap;
         }
 
         .btn{
             display:inline-block;
-            margin-top:20px;
-            padding:12px 20px;
-            background:#2563eb;
-            color:white;
+            padding:12px 22px;
+            background:var(--accent);
+            color:#fff;
             text-decoration:none;
             border-radius:8px;
+            font-weight:600;
+            border:1px solid var(--accent);
+            transition:opacity .15s ease;
         }
 
-        section{
-            padding:50px 20px;
+        .btn:hover{opacity:.88;}
+
+        .btn.ghost{
+            background:transparent;
+            color:var(--text);
+            border:1px solid var(--line);
+        }
+
+        .btn.ghost:hover{background:var(--card);}
+
+        /* ---------- Seções ---------- */
+
+        section{padding:60px 0;}
+
+        section > .wrap > h2{
+            font-size:1.6rem;
+            margin:0 0 8px;
+        }
+
+        .section-sub{
+            color:var(--muted);
+            margin:0 0 32px;
+            max-width:680px;
+        }
+
+        /* ---------- Sobre / números ---------- */
+
+        .about{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:12px;
+            padding:26px 28px;
+        }
+
+        .about p{margin:0 0 14px;}
+        .about p:last-child{margin-bottom:0;}
+
+        .stats{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+            gap:14px;
+            margin-top:26px;
+        }
+
+        .stat{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:12px;
+            padding:18px;
+            text-align:center;
+        }
+
+        .stat strong{
+            display:block;
+            font-size:1.8rem;
+            color:#fff;
+            line-height:1.2;
+        }
+
+        .stat span{
+            font-size:.85rem;
+            color:var(--muted);
+        }
+
+        /* ---------- Stack ---------- */
+
+        .chips{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+        }
+
+        .chip{
+            font-size:.85rem;
+            padding:6px 12px;
+            border-radius:999px;
+            background:var(--card);
+            border:1px solid var(--line);
+            color:var(--muted);
+        }
+
+        /* ---------- Projetos ---------- */
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+            gap:18px;
         }
 
         .card{
-            max-width:600px;
-            margin:20px auto;
-            padding:20px;
-            background:#222;
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:12px;
+            padding:22px 24px;
+            text-align:left;
+            display:flex;
+            flex-direction:column;
+            transition:background .15s ease, transform .15s ease;
+        }
+
+        .card:hover{
+            background:var(--card-hover);
+            transform:translateY(-2px);
+        }
+
+        .card h3{
+            margin:0 0 6px;
+            font-size:1.12rem;
+        }
+
+        .card .kicker{
+            font-size:.78rem;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            color:var(--accent);
+            margin:0 0 10px;
+            font-weight:600;
+        }
+
+        .card p{
+            margin:0 0 14px;
+            color:#d4d4d8;
+            font-size:.95rem;
+        }
+
+        .card .result{
+            font-size:.9rem;
+            color:var(--muted);
+            border-left:2px solid var(--accent);
+            padding-left:12px;
+            margin:0 0 16px;
+        }
+
+        .tags{
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+            margin-top:auto;
+        }
+
+        .tag{
+            font-size:.75rem;
+            padding:4px 10px;
+            border-radius:6px;
+            background:var(--accent-soft);
+            color:#93b4fb;
+        }
+
+        /* ---------- Nota / rodapé ---------- */
+
+        .note{
+            font-size:.88rem;
+            color:var(--muted);
+            border:1px dashed var(--line);
             border-radius:10px;
+            padding:16px 18px;
+            margin-top:28px;
+        }
+
+        footer{
+            border-top:1px solid var(--line);
+            padding:40px 20px;
+            text-align:center;
+            color:var(--muted);
+            font-size:.9rem;
+        }
+
+        footer a{color:var(--text);}
+
+        @media (max-width:600px){
+            header{padding:60px 20px 50px;}
+            header h1{font-size:2.2rem;}
+            section{padding:45px 0;}
         }
     </style>
 </head>
@@ -54,36 +264,419 @@
 
 <header>
     <h1>Matheus Capelo</h1>
-    <p>Desenvolvedor | Estudante | Criador de Projetos</p>
+    <p class="role">Desenvolvedor de Automações &amp; Aplicativos Desktop</p>
+    <p class="tagline">
+        Transformo rotinas manuais de contabilidade, fiscal e departamento pessoal
+        em aplicativos que rodam em um clique — Python, Excel e automação de sistemas web.
+    </p>
 
-    /seuusuario">
-        Meu GitHub
-    </a>
+    <div class="actions">
+        <!-- TROQUE "seuusuario" pelo seu usuário do GitHub -->
+        <a class="btn" href="https://github.com/TLCapelo" target="_blank" rel="noopener">Meu GitHub</a>
+        <a class="btn ghost" href="#projetos">Ver projetos</a>
+    </div>
 </header>
 
 <section>
-    <h2>Sobre Mim</h2>
+    <div class="wrap">
+        <h2>Sobre mim</h2>
+        <p class="section-sub">Quem eu sou e que tipo de problema eu resolvo.</p>
 
-    <div class="card">
-        <p>
-            Sou apaixonado por tecnologia, programação e desenvolvimento de soluções digitais.
+        <div class="about">
+            <p>
+                Sou apaixonado por tecnologia e por resolver problemas reais com código.
+                Meu trabalho hoje é olhar para processos que alguém faz à mão todo mês —
+                copiar dados de relatórios, conferir planilhas, montar consolidações,
+                baixar documentos de portais — e devolver isso como um programa confiável,
+                com interface simples, que qualquer pessoa da equipe consegue usar sem
+                saber nada de programação.
+            </p>
+            <p>
+                Faço o ciclo inteiro: entrevisto quem vai usar, entendo a regra de negócio,
+                construo, valido contra os dados reais até bater 100%, empacoto em um
+                executável e escrevo a documentação (manual de uso e documentação técnica)
+                para que a ferramenta sobreviva sem depender de mim.
+            </p>
+            <p>
+                Levo muito a sério dois princípios: <strong>nunca falhar em silêncio</strong>
+                (todo aviso, divergência e item ignorado aparece em relatório) e
+                <strong>configuração fora do código</strong> — regras, listas e mapeamentos
+                ficam em arquivos que o próprio usuário edita, sem precisar recompilar.
+            </p>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><strong>15+</strong><span>automações entregues e em uso</span></div>
+            <div class="stat"><strong>100%</strong><span>validação contra dados reais antes de entregar</span></div>
+            <div class="stat"><strong>Horas → min</strong><span>fechamentos que levavam dias</span></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="wrap">
+        <h2>Tecnologias</h2>
+        <p class="section-sub">O que eu uso no dia a dia.</p>
+
+        <div class="chips">
+            <span class="chip">Python 3.12</span>
+            <span class="chip">Tkinter</span>
+            <span class="chip">PySide6 / Qt</span>
+            <span class="chip">openpyxl</span>
+            <span class="chip">pandas</span>
+            <span class="chip">PyMuPDF</span>
+            <span class="chip">pdfplumber</span>
+            <span class="chip">xlrd</span>
+            <span class="chip">Playwright</span>
+            <span class="chip">Tesseract OCR</span>
+            <span class="chip">PyInstaller</span>
+            <span class="chip">python-docx</span>
+            <span class="chip">APIs REST</span>
+            <span class="chip">Power Query (M)</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Git</span>
+            <span class="chip">LLMs / IA aplicada</span>
+        </div>
+    </div>
+</section>
+
+<section id="projetos">
+    <div class="wrap">
+        <h2>Projetos</h2>
+        <p class="section-sub">
+            Aplicações internas construídas para uso profissional. Nomes de clientes,
+            empresas e sistemas proprietários foram omitidos; a descrição foca no
+            problema, na solução e no resultado.
+        </p>
+
+        <div class="grid">
+
+            <div class="card">
+                <p class="kicker">Leitura de documentos + IA</p>
+                <h3>Leitor de Notas Fiscais</h3>
+                <p>
+                    Aplicativo desktop que lê lotes de notas fiscais em PDF com layouts
+                    completamente diferentes entre si e devolve uma planilha padronizada
+                    (data, número, prestador, CNPJ, valor, serviço). Motor híbrido:
+                    parsers determinísticos por layout, OCR embutido para notas
+                    escaneadas e, só quando a confiança fica baixa, um modelo de IA
+                    como último recurso — sempre com consentimento explícito e custo
+                    estimado antes de enviar qualquer arquivo.
+                </p>
+                <p class="result">
+                    17/17 notas do gabarito extraídas corretamente sem IA. Planilha
+                    acumulada por competência com deduplicação, tela de revisão
+                    obrigatória e regras de validação configuráveis por arquivo.
+                </p>
+                <div class="tags">
+                    <span class="tag">PySide6</span>
+                    <span class="tag">PyMuPDF</span>
+                    <span class="tag">Tesseract OCR</span>
+                    <span class="tag">API de IA</span>
+                    <span class="tag">openpyxl</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Consolidação contábil</p>
+                <h3>Consolidador de Balancetes</h3>
+                <p>
+                    Substituiu uma planilha manual gigante que consolidava dezenas de
+                    empresas de um mesmo grupo. Lê os balancetes exportados do sistema
+                    contábil, reconstrói a hierarquia de contas pela classificação,
+                    gera as contas sintéticas como fórmulas Excel e monta o mapa
+                    consolidado com coluna de eliminações pronta para o time preencher.
+                </p>
+                <p class="result">
+                    62 empresas consolidadas, ativo total conferindo 100% com o mapa
+                    feito à mão (~R$ 256 milhões) e zero divergências internas. Inclui
+                    relatório automático de validação (ativo × passivo, sintética ×
+                    soma das filhas, períodos divergentes).
+                </p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Tkinter</span>
+                    <span class="tag">Parsing de CSV</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Multi-função</p>
+                <h3>Automatizador Contábil (grupo de construção)</h3>
+                <p>
+                    App com seletor de função para um grupo de 18 empresas. Uma função
+                    gera do zero a planilha "combinada" (balanço + DRE, uma coluna por
+                    empresa) a partir dos balancetes mensais; a outra produz o balanço
+                    consolidado a partir do relatório comparativo do ERP. Cada tipo de
+                    combinado é um arquivo de mapeamento editável — layout de linhas,
+                    de-para de contas e lista de empresas saem do código.
+                </p>
+                <p class="result">
+                    Todas as empresas fechando 100% (balanço, subgrupos e DRE) contra
+                    o fechamento real. Identificação por CNPJ depois que dois arquivos
+                    chegaram com o mesmo código interno, e detecção de planilhas com
+                    cache de fórmula desatualizado antes de reportar diferença falsa.
+                </p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Tkinter</span>
+                    <span class="tag">Regras configuráveis</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Relatórios gerenciais</p>
+                <h3>Comparativo DRE + EBITDA</h3>
+                <p>
+                    Lê balancetes comparativos em formato binário legado (.XLS antigo,
+                    paginado, sem identificação da empresa no nome do arquivo — o
+                    reconhecimento é feito pelo CNPJ no cabeçalho) e monta a DRE
+                    consolidada mês a mês mais a aba de EBITDA, com as linhas derivadas
+                    escritas como fórmulas para o usuário auditar.
+                </p>
+                <p class="result">
+                    Reproduziu 100% das células do modelo manual de referência e as 11
+                    linhas do EBITDA, célula a célula. Substituiu uma cadeia de
+                    planilhas com PROCVs encadeados entre seis abas.
+                </p>
+                <div class="tags">
+                    <span class="tag">xlrd</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Contabilidade + conferência</p>
+                <h3>Consolidador Financeiro (PDF → lançamentos)</h3>
+                <p>
+                    Lê lotes de relatórios em PDF, cruza cada item com um cadastro de
+                    empresas e centros de custo em Excel e gera os lançamentos contábeis
+                    prontos para importação no ERP. O de-para é resolvido por número de
+                    conta, nome e correspondência aproximada, com uma aba de sobreposição
+                    manual para os casos que nenhuma regra automática acerta.
+                </p>
+                <p class="result">
+                    646 lançamentos gerados com 0 erros no lote de validação. Uma segunda
+                    função — zeramento de encargos — passou a considerar o que já havia
+                    sido lançado antes (evitou 78 duplicatas em um único arquivo) e avisa,
+                    sem lançar, quando detecta valor no centro de custo errado na origem.
+                </p>
+                <div class="tags">
+                    <span class="tag">pdfplumber</span>
+                    <span class="tag">CustomTkinter</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Fuzzy matching</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Automação web (RPA)</p>
+                <h3>Robô de recibos fiscais</h3>
+                <p>
+                    Automatiza uma rotina mensal inteira: entra no portal fiscal, navega
+                    o filtro de competência, baixa o pacote de recibos e protocolos,
+                    extrai os PDFs e envia cada documento para o sistema de gestão de
+                    obrigações. Interface com competência, tipos de documento e horários
+                    editáveis, e log escrito em linguagem de usuário — não de programador.
+                </p>
+                <p class="result">
+                    Deduplicação por hash do conteúdo entre execuções (nunca reenvia o
+                    mesmo documento, mas reenvia um recibo reemitido), retentativas
+                    automáticas no fluxo e aviso em vermelho quando um documento novo
+                    ficou de fora por filtro do usuário — documento fiscal nunca é
+                    descartado em silêncio.
+                </p>
+                <div class="tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">Tkinter</span>
+                    <span class="tag">SHA-256</span>
+                    <span class="tag">PyInstaller</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Automação web (RPA)</p>
+                <h3>Extrator de extrato de plataforma</h3>
+                <p>
+                    Robô que faz login em uma plataforma web (com etapa de captcha
+                    resolvida pelo usuário e sessão persistida para as próximas
+                    execuções), percorre o extrato financeiro por período e devolve
+                    todos os lançamentos em Excel no formato que a equipe já usava.
+                    A paginação foi resolvida direto por parâmetros de URL depois de
+                    engenharia reversa da tela de filtros.
+                </p>
+                <p class="result">
+                    Teste real: 32 páginas e 3.125 lançamentos extraídos em uma execução,
+                    com o total conferindo. Primeiro app da equipe a empacotar um
+                    navegador automatizado dentro de um executável.
+                </p>
+                <div class="tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Excel</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Departamento pessoal</p>
+                <h3>Comparador de eventos de folha</h3>
+                <p>
+                    Confere, evento por evento e funcionário por funcionário, se o que
+                    foi importado na planilha de eventos variáveis saiu igual no relatório
+                    de cálculo da folha (PDF de duas colunas). Classifica cada diferença
+                    como faltando, divergente ou a mais, com severidade diferente para
+                    hora e valor, e ignora desligados por rescisão.
+                </p>
+                <p class="result">
+                    Em um fechamento real apontou um evento de 44 minutos que não havia
+                    saído na folha — o tipo de erro que passa batido na conferência
+                    manual. Gera relatório em texto e planilha colorida.
+                </p>
+                <div class="tags">
+                    <span class="tag">pdfplumber</span>
+                    <span class="tag">xlrd</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Tkinter</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Relatórios para conselho</p>
+                <h3>Balancete para conselho administrativo</h3>
+                <p>
+                    Uma planilha cheia de XLOOKUPs alimentava manualmente o pacote
+                    mensal do conselho (balanço patrimonial, DRE, faturamento e passivo
+                    financeiro). Extraí todo o de-para embutido nas fórmulas para um
+                    arquivo de mapeamento editável e passei o cálculo para Python: o app
+                    lê os relatórios crus, descobre a competência sozinho e entrega o
+                    workbook final formatado.
+                </p>
+                <p class="result">
+                    Prova de fidelidade antes de entregar: reconstruiu o modelo célula a
+                    célula (balanço 75/75, DRE 28/28, passivo 29/29) com zero divergências,
+                    mais seis validações contábeis automáticas e relatório de contas órfãs.
+                </p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Engenharia reversa de planilha</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Extração de PDF</p>
+                <h3>Extrator de prestação de contas</h3>
+                <p>
+                    Ferramenta enxuta e cirúrgica: lê o extrato de conta corrente em PDF
+                    e transporta cada linha de lançamento, literalmente, para uma
+                    planilha nova — descartando cabeçalhos, saldos e rodapés, e tratando
+                    linhas de data como separadores. O que era copiar e colar página por
+                    página virou dois cliques.
+                </p>
+                <p class="result">
+                    Validado contra a conferência manual com zero diferenças (381 linhas
+                    no arquivo de teste).
+                </p>
+                <div class="tags">
+                    <span class="tag">pdfplumber</span>
+                    <span class="tag">openpyxl</span>
+                    <span class="tag">Tkinter</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Integração de sistemas</p>
+                <h3>Integração RH → Folha via API</h3>
+                <p>
+                    Integração entre um sistema de RH em nuvem e o sistema de folha de
+                    pagamento: conversor que transforma os dados de admissão em arquivo
+                    de leiaute posicional, com validador do arquivo gerado, template de
+                    parâmetros por cliente e coleções de requisições prontas para
+                    homologação em ambientes separados.
+                </p>
+                <p class="result">
+                    134 testes automatizados passando, incluindo teste de aceite de um
+                    caso real ponta a ponta. Regra do projeto: toda afirmação sobre
+                    endpoint, campo ou formato tem que estar documentada — "não está
+                    documentado" é resposta válida, chute não é.
+                </p>
+                <div class="tags">
+                    <span class="tag">APIs REST</span>
+                    <span class="tag">Postman</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">pytest</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Performance</p>
+                <h3>Otimização de consulta Power Query</h3>
+                <p>
+                    Uma consulta que reestruturava o boletim de caixa travava
+                    indefinidamente no refresh. Diagnostiquei a causa (a mesma linha de
+                    texto era quebrada de novo em cada uma das dez colunas, sem
+                    materialização intermediária) e reescrevi calculando a divisão uma
+                    única vez com buffer da tabela — sem mudar uma linha da regra de negócio.
+                </p>
+                <p class="result">
+                    De "gira e nunca termina" para execução normal, com a saída conferida
+                    item a item (235 itens, 59 lançamentos, soma exata) — incluindo os
+                    lançamentos com rateio, cujo identificador só aparece na primeira linha.
+                </p>
+                <div class="tags">
+                    <span class="tag">Power Query (M)</span>
+                    <span class="tag">Excel</span>
+                    <span class="tag">Debug de performance</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="kicker">Ferramenta interna</p>
+                <h3>Motor de documentação automatizada</h3>
+                <p>
+                    Cada aplicativo entregue precisa sair com procedimento operacional e
+                    documentação técnica no padrão visual da área. Construí um gerador
+                    que monta esses documentos Word por código, a partir de um molde,
+                    com controle central de numeração — resolvendo no caminho um problema
+                    chato: a biblioteca de manipulação de .docx derrubava a logotipo
+                    flutuante do cabeçalho, então o cabeçalho passou a ser transplantado
+                    no nível do pacote (zip/XML) em vez de recriado.
+                </p>
+                <p class="result">
+                    Mais de 20 documentos gerados e padronizados em lote, com logotipo,
+                    tipografia, cores e tabela de revisões idênticos em todos.
+                </p>
+                <div class="tags">
+                    <span class="tag">python-docx</span>
+                    <span class="tag">lxml</span>
+                    <span class="tag">OOXML</span>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="note">
+            Observação: estes projetos foram desenvolvidos em contexto profissional, com
+            dados confidenciais. Por isso o código e os arquivos não estão públicos e
+            nomes de empresas, clientes e sistemas proprietários foram omitidos.
+            Tenho prazer em detalhar arquitetura, decisões técnicas e trechos de código
+            genéricos em uma conversa.
         </p>
     </div>
 </section>
 
-<section>
-    <h2>Projetos</h2>
-
-    <div class="card">
-        <h3>Projeto 1</h3>
-        <p>Descrição do projeto.</p>
-    </div>
-
-    <div class="card">
-        <h3>Projeto 2</h3>
-        <p>Descrição do projeto.</p>
-    </div>
-</section>
+<footer>
+    <p>
+        Vamos conversar —
+        <!-- TROQUE pelos seus links reais -->
+        <a href="https://github.com/TLCapelo" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/mxxcapelo" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p>© 2026 Matheus Capelo</p>
+</footer>
 
 </body>
 </html>
