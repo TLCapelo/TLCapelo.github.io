@@ -1,0 +1,89 @@
+import React, { useEffect, useRef, useState } from "react";
+import { Github, Linkedin, ArrowDownRight, X, RotateCw, Play, Pause, Leaf, Gamepad2, BookOpen, Film, Mic2, Code2 } from "lucide-react";
+
+const projects = [
+  {type:"IA + documentos", title:"Leitor de Notas Fiscais", metric:"17/17 notas extraídas corretamente", text:"Motor híbrido com parsing, OCR e IA apenas como último recurso. Revisão obrigatória, deduplicação e validações configuráveis.", stack:["PySide6","PyMuPDF","OCR","IA"]},
+  {type:"Consolidação contábil", title:"Consolidador de Balancetes", metric:"62 empresas · R$ 256 mi validados", text:"Reconstrói hierarquias contábeis, gera fórmulas auditáveis e produz um mapa consolidado com validações automáticas.", stack:["Python","openpyxl","Tkinter"]},
+  {type:"Automação web", title:"Robô de recibos fiscais", metric:"Rotina mensal convertida em poucos cliques", text:"Navega em portais, baixa documentos e envia cada item ao sistema de obrigações, com retentativas e rastreabilidade.", stack:["Playwright","SHA-256","PyInstaller"]},
+  {type:"Integração de sistemas", title:"RH para folha via API", metric:"134 testes automatizados", text:"Transforma admissões em leiaute posicional, valida a saída e separa configurações por cliente e ambiente.", stack:["REST","Python","pytest"]},
+  {type:"Engenharia reversa", title:"Relatório para conselho", metric:"132/132 células sem divergências", text:"Substitui uma cadeia de fórmulas por um fluxo reproduzível, configurável e acompanhado de seis validações contábeis.", stack:["Python","Excel","OOXML"]},
+  {type:"Performance", title:"Power Query otimizado", metric:"De travamento para execução normal", text:"Elimina cálculos repetidos e preserva integralmente as regras de negócio e os resultados do relatório.", stack:["Power Query","Excel","Debug"]}
+];
+
+const films=["Shrek 2","The Iron Claw","O Lutador (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"];
+
+const GITHUB="https://github.com/TLCapelo";
+const LINKEDIN="https://www.linkedin.com/in/mxxcapelo";
+
+const SHAPES=[[[1,1,1,1]],[[1,1],[1,1]],[[0,1,0],[1,1,1]],[[1,0,0],[1,1,1]],[[0,0,1],[1,1,1]],[[0,1,1],[1,1,0]],[[1,1,0],[0,1,1]]];
+const COLORS=["#7dd3fc","#fde68a","#c4b5fd","#fdba74","#93c5fd","#86efac","#fda4af"];
+
+function Tetris({onClose}){
+ const canvasRef=useRef(null), game=useRef(null);
+ const [score,setScore]=useState(0); const [running,setRunning]=useState(true); const [over,setOver]=useState(false);
+ // Espelho em ref: o loop de animação precisa ler o valor atual sem virar dependência do efeito.
+ const runningRef=useRef(true), overRef=useRef(false);
+
+ const setPause=v=>{const next=typeof v==="function"?v(runningRef.current):v; runningRef.current=next; setRunning(next)};
+ const setGameOver=v=>{overRef.current=v; setOver(v)};
+
+ const fresh=()=>({board:Array.from({length:20},()=>Array(10).fill(0)), piece:null, last:0});
+ const collide=(g,dx,dy,s)=>s.some((r,y)=>r.some((v,x)=>v&&(g.piece.y+y+dy>=20||g.piece.x+x+dx<0||g.piece.x+x+dx>=10||g.board[g.piece.y+y+dy]?.[g.piece.x+x+dx])));
+ const spawn=g=>{const id=Math.floor(Math.random()*SHAPES.length); g.piece={s:SHAPES[id],x:Math.floor((10-SHAPES[id][0].length)/2),y:0,c:COLORS[id]}; if(collide(g,0,0,g.piece.s)) setGameOver(true)};
+ const merge=g=>g.piece.s.forEach((r,y)=>r.forEach((v,x)=>{if(v&&g.piece.y+y>=0)g.board[g.piece.y+y][g.piece.x+x]=g.piece.c}));
+ const clear=g=>{let n=0;g.board=g.board.filter(r=>{if(r.every(Boolean)){n++;return false}return true});while(g.board.length<20)g.board.unshift(Array(10).fill(0));if(n)setScore(s=>s+[0,100,300,500,800][n])};
+ const rotate=()=>{const g=game.current;if(!g?.piece||overRef.current)return;const s=g.piece.s[0].map((_,i)=>g.piece.s.map(r=>r[i]).reverse());if(!collide(g,0,0,s))g.piece.s=s;draw(g)};
+ const move=dx=>{const g=game.current;if(!g?.piece||overRef.current)return;if(!collide(g,dx,0,g.piece.s))g.piece.x+=dx;draw(g)};
+ const down=()=>{const g=game.current;if(!g?.piece||overRef.current)return;if(!collide(g,0,1,g.piece.s))g.piece.y++;else{merge(g);clear(g);spawn(g)};draw(g)};
+
+ const draw=g=>{const c=canvasRef.current;if(!c)return;const ctx=c.getContext("2d");ctx.fillStyle="#09090b";ctx.fillRect(0,0,300,600);const cell=(x,y,color)=>{ctx.fillStyle=color;ctx.fillRect(x*30+2,y*30+2,26,26)};g.board.forEach((r,y)=>r.forEach((v,x)=>v&&cell(x,y,v)));g.piece?.s.forEach((r,y)=>r.forEach((v,x)=>v&&cell(g.piece.x+x,g.piece.y+y,g.piece.c)))};
+
+ const reset=()=>{game.current=fresh();setScore(0);setGameOver(false);setPause(true);spawn(game.current);draw(game.current)};
+
+ // Efeito de MONTAGEM apenas. Se "running"/"over" fossem dependências,
+ // pausar o jogo (espaço) rodaria reset() e apagaria o tabuleiro.
+ useEffect(()=>{
+  reset();
+  let id;
+  const loop=t=>{
+   const g=game.current;
+   if(g&&runningRef.current&&!overRef.current){ if(t-g.last>520){down();g.last=t} }
+   id=requestAnimationFrame(loop);
+  };
+  id=requestAnimationFrame(loop);
+  const key=e=>{
+   if(["ArrowLeft","ArrowRight","ArrowDown","ArrowUp"," "].includes(e.key))e.preventDefault();
+   if(e.key==="Escape")return onClose();
+   if(e.key===" ")return setPause(v=>!v);
+   if(!runningRef.current)return;
+   if(e.key==="ArrowLeft")move(-1);
+   if(e.key==="ArrowRight")move(1);
+   if(e.key==="ArrowDown")down();
+   if(e.key==="ArrowUp")rotate();
+  };
+  addEventListener("keydown",key);
+  return()=>{cancelAnimationFrame(id);removeEventListener("keydown",key)};
+ },[]);
+
+ return <div className="fixed inset-0 z-[100] grid place-items-center bg-black/80 p-4 backdrop-blur-xl"><div className="relative flex max-h-[94vh] w-full max-w-3xl flex-col overflow-auto rounded-[2rem] border border-white/10 bg-zinc-950 p-5 text-white shadow-2xl md:flex-row md:gap-8 md:p-8"><button onClick={onClose} aria-label="Fechar" className="absolute right-5 top-5 z-10 rounded-full border border-white/10 p-2 hover:bg-white/10"><X/></button><canvas ref={canvasRef} width="300" height="600" className="mx-auto h-[60vh] w-auto max-w-full rounded-xl border border-white/10 bg-black"/><div className="flex min-w-52 flex-col justify-center py-5"><p className="text-xs uppercase tracking-[.25em] text-lime-300">Tédio resolvido</p><h2 className="mt-2 text-4xl font-black">Tetris</h2><p className="mt-3 text-zinc-400">← → mover · ↑ girar · ↓ descer · espaço pausar</p><p className="mt-7 text-5xl font-black tabular-nums">{score}</p><p className="text-sm text-zinc-500">pontos</p>{over&&<p className="mt-5 font-bold text-rose-400">Fim de jogo.</p>}{!running&&!over&&<p className="mt-5 font-bold text-lime-300">Pausado.</p>}<div className="mt-6 flex gap-2"><button onClick={()=>setPause(v=>!v)} aria-label={running?"Pausar":"Continuar"} className="rounded-full bg-white px-4 py-3 text-black">{running?<Pause size={18}/>:<Play size={18}/>}</button><button onClick={rotate} aria-label="Girar" className="rounded-full border border-white/10 px-4 py-3"><RotateCw size={18}/></button><button onClick={reset} className="rounded-full border border-white/10 px-5 py-3 text-sm">Recomeçar</button></div><div className="mt-4 grid grid-cols-3 gap-2 md:hidden"><button onClick={()=>move(-1)} className="rounded-xl bg-white/10 p-3">←</button><button onClick={rotate} className="rounded-xl bg-white/10 p-3">↻</button><button onClick={()=>move(1)} className="rounded-xl bg-white/10 p-3">→</button><button onClick={down} className="col-span-3 rounded-xl bg-lime-300 p-3 font-bold text-black">↓ descer</button></div></div></div></div>
+}
+
+export default function Portfolio(){
+ const [game,setGame]=useState(false); const [menu,setMenu]=useState(false);
+ return <main className="min-h-screen overflow-x-hidden bg-[#f1efe8] text-[#111] selection:bg-lime-300">
+  <nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 mix-blend-difference text-white md:px-10"><a href="#top" className="text-sm font-black tracking-tight">MAXIMILIAN®</a><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">Sobre</a><a href="#projetos">Projetos</a><a href="#vida">Vida</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">Tédio?</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>Menu</button></nav>
+  {menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">Sobre</a><a onClick={()=>setMenu(false)} href="#projetos">Projetos</a><a onClick={()=>setMenu(false)} href="#vida">Vida</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">Tédio?</button></div>}
+  <header id="top" className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-[#101010] px-5 pb-12 pt-28 text-white md:px-10 md:pb-16"><div className="absolute -right-24 top-14 h-[420px] w-[420px] rounded-full bg-lime-300/20 blur-[110px]"/><p className="mb-6 font-mono text-xs uppercase tracking-[.3em] text-lime-300">Engenheiro de software · automação · produtos internos</p><h1 className="max-w-6xl text-[15vw] font-black uppercase leading-[.75] tracking-[-.08em] md:text-[10vw]">Eu transformo<br/><span className="text-zinc-500">processos</span><br/>em software.</h1><div className="mt-12 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-2"><p className="max-w-xl text-xl text-zinc-300">Sou Matheus “Maximilian” Capelo. Projeto automações e aplicativos confiáveis para problemas reais, do entendimento da regra de negócio ao executável documentado.</p><div className="flex items-end gap-3 md:justify-end"><a href="#projetos" className="rounded-full bg-lime-300 px-6 py-3 font-bold text-black">Ver trabalho</a><a href={GITHUB} target="_blank" rel="noreferrer" aria-label="GitHub" className="rounded-full border border-white/20 p-3 transition hover:bg-white/10"><Github/></a><a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-full border border-white/20 p-3 transition hover:bg-white/10"><Linkedin/></a></div></div></header>
+
+  <section id="sobre" className="px-5 py-24 md:px-10 md:py-40"><div className="mx-auto grid max-w-[1400px] gap-14 md:grid-cols-[.7fr_1.3fr]"><p className="font-mono text-xs uppercase tracking-[.25em]">01 · Sobre</p><div><h2 className="text-5xl font-black leading-[.95] tracking-[-.05em] md:text-8xl">Código é a parte fácil.<br/><span className="text-zinc-400">Entender o problema é o trabalho.</span></h2><div className="mt-12 grid gap-8 text-lg leading-relaxed text-zinc-700 md:grid-cols-2"><p>Converso com quem executa o processo, traduzo regras de negócio, construo a solução e valido tudo contra dados reais. Não entrego apenas scripts. Entrego ferramentas que pessoas não técnicas conseguem usar.</p><p>Meus princípios são simples: nunca falhar em silêncio, manter regras fora do código e tornar cada resultado auditável. O software precisa continuar útil mesmo quando eu não estiver na sala.</p></div><div className="mt-12 grid grid-cols-3 border-y border-black/15 py-8"><div><b className="text-4xl md:text-6xl">15+</b><p className="mt-2 text-sm text-zinc-500">automações em uso</p></div><div><b className="text-4xl md:text-6xl">100%</b><p className="mt-2 text-sm text-zinc-500">validação real</p></div><div><b className="text-4xl md:text-6xl">h→min</b><p className="mt-2 text-sm text-zinc-500">ganho operacional</p></div></div></div></div></section>
+
+  <section className="bg-lime-300 px-5 py-16 md:px-10"><div className="mx-auto flex max-w-[1400px] flex-col justify-between gap-8 md:flex-row md:items-center"><div><p className="font-mono text-xs uppercase tracking-[.25em]">Palco · 2025</p><h2 className="mt-3 max-w-4xl text-4xl font-black tracking-[-.04em] md:text-7xl">Palestrante na SESCOMP, feira de tecnologia da Universidade Federal do Ceará.</h2></div><Mic2 size={72} strokeWidth={1.5} className="shrink-0"/></div></section>
+
+  <section id="projetos" className="bg-[#101010] px-5 py-24 text-white md:px-10 md:py-36"><div className="mx-auto max-w-[1400px]"><div className="mb-16 flex items-end justify-between"><div><p className="font-mono text-xs uppercase tracking-[.25em] text-lime-300">02 · Projetos selecionados</p><h2 className="mt-4 text-6xl font-black tracking-[-.06em] md:text-9xl">Impacto,<br/>não features.</h2></div><Code2 className="hidden shrink-0 text-zinc-700 md:block" size={100}/></div><div className="border-t border-white/15">{projects.map((p,i)=><article key={p.title} className="group grid gap-5 border-b border-white/15 py-9 transition hover:bg-white/[.03] md:grid-cols-[80px_1fr_1fr] md:p-9"><span className="font-mono text-zinc-600">0{i+1}</span><div><p className="text-xs uppercase tracking-[.2em] text-lime-300">{p.type}</p><h3 className="mt-2 text-3xl font-bold tracking-tight md:text-5xl">{p.title}</h3><p className="mt-3 font-bold text-white">{p.metric}</p></div><div><p className="text-lg text-zinc-400">{p.text}</p><div className="mt-5 flex flex-wrap gap-2">{p.stack.map(s=><span className="rounded-full border border-white/15 px-3 py-1 text-xs text-zinc-400" key={s}>{s}</span>)}</div></div></article>)}</div><p className="mt-8 max-w-2xl text-sm text-zinc-500">Projetos profissionais descritos sem dados confidenciais. Arquiteturas, decisões técnicas e exemplos genéricos podem ser apresentados em uma conversa.</p></div></section>
+
+  <section id="vida" className="px-5 py-24 md:px-10 md:py-40"><div className="mx-auto max-w-[1400px]"><p className="font-mono text-xs uppercase tracking-[.25em]">03 · Fora do terminal</p><div className="mt-10 grid gap-5 md:grid-cols-12"><div className="rounded-[2rem] bg-[#ff5b35] p-8 md:col-span-7 md:p-12"><h2 className="text-5xl font-black tracking-[-.05em] md:text-8xl">Eu gosto de histórias.</h2><p className="mt-8 max-w-xl text-xl">Mangás, jogos, filmes, séries e literatura clássica. Formatos diferentes para a mesma obsessão: entender pessoas, mundos e escolhas.</p><div className="mt-10 flex gap-4"><BookOpen/><Gamepad2/><Film/></div></div><div className="rounded-[2rem] bg-[#222] p-8 text-white md:col-span-5 md:p-12"><p className="text-sm uppercase tracking-[.2em] text-zinc-500">Um livro</p><p className="mt-5 text-4xl font-black italic">“On the Road mudou minha vida.”</p><p className="mt-6 text-zinc-400">Talvez pela estrada, pela inquietação, ou pela ideia de que a vida também acontece enquanto tentamos descobrir para onde ir.</p></div><div className="rounded-[2rem] bg-sky-300 p-8 md:col-span-5 md:p-12"><Leaf size={48}/><h3 className="mt-8 text-4xl font-black">Tecnologia com mundo ao redor.</h3><p className="mt-4 text-lg">Também me importo com meio ambiente e com a forma como aquilo que construímos afeta o que existe fora da tela.</p></div><div className="rounded-[2rem] bg-[#d8c7ff] p-8 md:col-span-7 md:p-12"><p className="text-sm uppercase tracking-[.2em]">Pseudo cinéfilo · favoritos</p><div className="mt-7 flex flex-wrap gap-3">{films.map((f,i)=><span key={f} className="rounded-full border border-black/20 bg-white/30 px-4 py-2 font-bold">{String(i+1).padStart(2,"0")} · {f}</span>)}</div></div></div></div></section>
+
+  <section className="bg-lime-300 px-5 py-24 md:px-10 md:py-36"><div className="mx-auto max-w-[1400px]"><p className="font-mono text-xs uppercase tracking-[.25em]">04 · Próxima conversa</p><a href={LINKEDIN} target="_blank" rel="noreferrer" className="group mt-7 flex items-end justify-between border-b-4 border-black pb-5"><span className="text-6xl font-black tracking-[-.06em] md:text-[9vw]">Vamos construir?</span><ArrowDownRight className="shrink-0 transition group-hover:rotate-45" size={72}/></a><div className="mt-12 flex flex-wrap justify-between gap-5 text-sm"><p>© 2026 Matheus “Maximilian” Capelo</p><div className="flex gap-6"><a href={GITHUB} target="_blank" rel="noreferrer">GitHub</a><a href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a><button onClick={()=>setGame(true)} className="font-black">Tédio?</button></div></div></div></section>
+  {game&&<Tetris onClose={()=>setGame(false)}/>}
+ </main>
+}
