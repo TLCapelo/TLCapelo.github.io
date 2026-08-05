@@ -12,7 +12,7 @@ const projects = [
 
 const films=["Shrek 2","The Iron Claw","O Lutador (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"];
 
-const GITHUB="https://github.com/TLCapelo";
+####const GITHUB="https://github.com/TLCapelo";
 const LINKEDIN="https://www.linkedin.com/in/mxxcapelo";
 
 const SHAPES=[[[1,1,1,1]],[[1,1],[1,1]],[[0,1,0],[1,1,1]],[[1,0,0],[1,1,1]],[[0,0,1],[1,1,1]],[[0,1,1],[1,1,0]],[[1,1,0],[0,1,1]]];
