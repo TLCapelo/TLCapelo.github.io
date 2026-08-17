@@ -14,7 +14,7 @@ export const copy = {
     },
     sobre:{
       label:"01 · Sobre",
-      h2a:"Código é a parte fácil.", h2b:"Entender o problema é o trabalho.",
+      h2a:"Código é a parte fácil.", h2b:"Os melhores engenheiros não escrevem um codigo melhor, eles fazem perguntas melhores.",
       p1:"Comecei em análise de dados: tráfego, campanhas, indicadores. Depois vieram os processos, o Business Intelligence e, por fim, o software que sustenta tudo isso. Hoje faço as duas pontas. Entendo o número e construo a ferramenta que o produz.",
       p2:"Converso com quem executa o processo, traduzo regras de negócio, construo a solução e valido contra dados reais. Não entrego apenas scripts nem apenas dashboards: entrego ferramentas que pessoas não técnicas conseguem usar.",
       p3:"Meus princípios são simples: nunca falhar em silêncio, manter regras fora do código e tornar cada resultado auditável. O que eu construo precisa continuar útil mesmo quando eu não estiver na sala.",
@@ -89,7 +89,7 @@ export const copy = {
     },
     sobre:{
       label:"01 · About",
-      h2a:"Code is the easy part.", h2b:"Understanding the problem is the job.",
+      h2a:"Code is the easy part.", h2b:"The best engineers don't write better code. They ask better questions.",
       p1:"I started in data analysis: traffic, campaigns, metrics. Then came processes, Business Intelligence and, finally, the software that holds all of it up. Today I work both ends. I understand the number and I build the tool that produces it.",
       p2:"I talk to the people who actually run the process, translate business rules, build the solution and validate it against real data. I don't ship just scripts or just dashboards: I ship tools that non-technical people can actually use.",
       p3:"My principles are simple: never fail silently, keep business rules out of the code and make every result auditable. What I build has to stay useful even when I'm not in the room.",
