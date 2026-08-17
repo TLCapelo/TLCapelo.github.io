@@ -14,7 +14,7 @@ export const copy = {
     },
     sobre:{
       label:"01 · Sobre",
-      h2a:"Código é a parte fácil.", h2b:"Os melhores engenheiros não escrevem um codigo melhor, eles fazem perguntas melhores.",
+      h2a:"Código é a parte fácil.", h2b:"Os melhores engenheiros não escrevem um código melhor, eles fazem perguntas melhores.",
       p1:"Comecei em análise de dados: tráfego, campanhas, indicadores. Depois vieram os processos, o Business Intelligence e, por fim, o software que sustenta tudo isso. Hoje faço as duas pontas. Entendo o número e construo a ferramenta que o produz.",
       p2:"Converso com quem executa o processo, traduzo regras de negócio, construo a solução e valido contra dados reais. Não entrego apenas scripts nem apenas dashboards: entrego ferramentas que pessoas não técnicas conseguem usar.",
       p3:"Meus princípios são simples: nunca falhar em silêncio, manter regras fora do código e tornar cada resultado auditável. O que eu construo precisa continuar útil mesmo quando eu não estiver na sala.",
