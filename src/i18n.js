@@ -74,6 +74,17 @@ export const copy = {
       films:["Shrek 2","The Iron Claw","O Lutador (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"]
     },
     contato:{label:"05 · Próxima conversa", cta:"Vamos construir?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
+    entrada:{
+      eyebrow:"Matheus “Maximilian” Capelo",
+      h1a:"Construo sistemas.", h1b:"E escrevo sobre o resto.",
+      lead:"Analista de dados e desenvolvedor. De um lado, o que eu construo. Do outro, o que eu penso. Escolha por onde começar.",
+      portfolioLabel:"O trabalho", portfolioTitulo:"Portfólio",
+      portfolioTexto:"Automações, BI e integrações que substituíram rotinas manuais inteiras. Com número medido, não com estimativa.",
+      portfolioRodape:"Projetos, trajetória e contato",
+      blogLabel:"As ideias", blogTitulo:"Blog",
+      blogTexto:"Onde visões diferentes se encontram. Tecnologia, negócios, cultura, sociedade.",
+      blogUltimo:"Mais recente", blogVazio:"Em breve"
+    },
     blog:{
       nav:"Blog",
       label:"Blog · textos e opinião",
@@ -166,6 +177,17 @@ export const copy = {
       films:["Shrek 2","The Iron Claw","The Wrestler (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"]
     },
     contato:{label:"05 · Next conversation", cta:"Let's build something?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
+    entrada:{
+      eyebrow:"Matheus “Maximilian” Capelo",
+      h1a:"I build systems.", h1b:"And I write about the rest.",
+      lead:"Data analyst and developer. On one side, what I build. On the other, what I think. Pick where to start.",
+      portfolioLabel:"The work", portfolioTitulo:"Portfolio",
+      portfolioTexto:"Automation, BI and integrations that replaced entire manual routines. With measured numbers, not estimates.",
+      portfolioRodape:"Projects, experience and contact",
+      blogLabel:"The ideas", blogTitulo:"Blog",
+      blogTexto:"Where different views meet. Technology, business, culture, society.",
+      blogUltimo:"Latest", blogVazio:"Coming soon"
+    },
     blog:{
       nav:"Blog",
       label:"Blog · essays and opinion",

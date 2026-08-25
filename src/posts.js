@@ -39,6 +39,7 @@ export const posts = Object.entries(arquivos).map(([caminho, bruto]) => {
 }).sort((a,b) => b.data.localeCompare(a.data));
 
 export const postsDe = lang => posts.filter(p => p.lang === lang);
+export const ultimoPost = lang => postsDe(lang)[0] || null;
 export const achaPost = slug => posts.find(p => p.slug === slug);
 
 export const formataData = (iso, lang) => {

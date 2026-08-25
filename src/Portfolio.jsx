@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Linkedin, ArrowDownRight, X, RotateCw, Play, Pause, Leaf, Gamepad2, BookOpen, Film, Mic2, Code2, LineChart } from "lucide-react";
 import sescomp from "./assets/sescomp-2025.jpg";
 import { copy } from "./i18n";
-import { FlagBR, FlagUS } from "./Flags";
+import LangSwitch from "./LangSwitch";
 import { ListaPosts, PaginaPost, PostNaoEncontrado } from "./Blog";
-import { achaPost } from "./posts";
+import { achaPost, ultimoPost } from "./posts";
+import Entrada from "./Entrada";
 
 const LINKEDIN="https://www.linkedin.com/in/mxxcapelo";
 
@@ -25,26 +26,17 @@ const readLang=()=>{
 };
 
 // ---------- rota ----------
-// O hash decide a pagina: "#/blog" e "#/blog/slug" sao rotas de verdade.
-// Qualquer outro hash ("#sobre") continua sendo ancora de rolagem da home.
+// A raiz e um menu de entrada. As rotas de verdade sao "#/portfolio", "#/blog"
+// e "#/blog/slug". Um hash simples ("#sobre") cai no portfolio e rola ate a
+// ancora, para os links antigos continuarem funcionando.
 const leRota=()=>{
  const h=window.location.hash||"";
  if(h.startsWith("#/blog/"))return {nome:"post", slug:decodeURIComponent(h.slice(7))};
  if(h==="#/blog"||h==="#/blog/")return {nome:"blog"};
- return {nome:"home", ancora:(h.length>1&&!h.startsWith("#/"))?h.slice(1):null};
+ if(h==="#/portfolio"||h==="#/portfolio/")return {nome:"portfolio", ancora:null};
+ if(h.length>1&&!h.startsWith("#/"))return {nome:"portfolio", ancora:h.slice(1)};
+ return {nome:"entrada"};
 };
-
-function LangSwitch({lang,setLang,tone="dark",className=""}){
- const shell=tone==="light"?"border-black/20 bg-black/[.07]":"border-white/20 bg-black/40 backdrop-blur-md";
- const on=tone==="light"?"bg-white ring-1 ring-black/40":"bg-white/20 ring-1 ring-lime-300";
- return <div className={`flex shrink-0 items-center gap-1 rounded-full border p-1 ${shell} ${className}`}>
-  {[["pt",FlagBR,"Ver o site em português"],["en",FlagUS,"View this site in English"]].map(([code,Flag,label])=>
-   <button key={code} type="button" onClick={()=>setLang(code)} title={label} aria-label={label} aria-pressed={lang===code}
-    className={`rounded-full p-1 transition ${lang===code?on:"opacity-40 hover:opacity-90"}`}>
-    <Flag className="h-3.5 w-5 rounded-[2px]"/>
-   </button>)}
- </div>;
-}
 
 function Tetris({onClose,t}){
  const canvasRef=useRef(null), game=useRef(null);
@@ -111,7 +103,7 @@ export default function Portfolio(){
 
  // Trocou de pagina, volta ao topo. Clicou numa ancora, rola ate ela.
  useEffect(()=>{
-  if(rota.nome==="home"&&rota.ancora) document.getElementById(rota.ancora)?.scrollIntoView();
+  if(rota.nome==="portfolio"&&rota.ancora) document.getElementById(rota.ancora)?.scrollIntoView();
   else window.scrollTo(0,0);
  },[rota]);
 
@@ -126,9 +118,11 @@ export default function Portfolio(){
   window.history.replaceState({},"",u);
  },[lang,t]);
 
- const barra = <><nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 md:px-10"><div className="flex items-center gap-4"><LangSwitch lang={lang} setLang={setLang}/><a href="#top" className="text-sm font-black tracking-tight text-white mix-blend-difference">MAXIMILIAN®</a></div><div className="flex items-center text-white mix-blend-difference"><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">{t.nav.sobre}</a><a href="#trajetoria">{t.nav.trajetoria}</a><a href="#projetos">{t.nav.projetos}</a><a href="#vida">{t.nav.vida}</a><a href="#/blog">{t.blog.nav}</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">{t.nav.tedio}</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>{t.nav.menu}</button></div></nav>{menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">{t.nav.sobre}</a><a onClick={()=>setMenu(false)} href="#trajetoria">{t.nav.trajetoria}</a><a onClick={()=>setMenu(false)} href="#projetos">{t.nav.projetos}</a><a onClick={()=>setMenu(false)} href="#vida">{t.nav.vida}</a><a onClick={()=>setMenu(false)} href="#/blog">{t.blog.nav}</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">{t.nav.tedio}</button><LangSwitch lang={lang} setLang={setLang} className="mt-4"/></div>}</>;
+ const barra = <><nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 md:px-10"><div className="flex items-center gap-4"><LangSwitch lang={lang} setLang={setLang}/><a href="#/" className="text-sm font-black tracking-tight text-white mix-blend-difference">MAXIMILIAN®</a></div><div className="flex items-center text-white mix-blend-difference"><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">{t.nav.sobre}</a><a href="#trajetoria">{t.nav.trajetoria}</a><a href="#projetos">{t.nav.projetos}</a><a href="#vida">{t.nav.vida}</a><a href="#/blog">{t.blog.nav}</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">{t.nav.tedio}</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>{t.nav.menu}</button></div></nav>{menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">{t.nav.sobre}</a><a onClick={()=>setMenu(false)} href="#trajetoria">{t.nav.trajetoria}</a><a onClick={()=>setMenu(false)} href="#projetos">{t.nav.projetos}</a><a onClick={()=>setMenu(false)} href="#vida">{t.nav.vida}</a><a onClick={()=>setMenu(false)} href="#/blog">{t.blog.nav}</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">{t.nav.tedio}</button><LangSwitch lang={lang} setLang={setLang} className="mt-4"/></div>}</>;
 
- if(rota.nome!=="home"){
+ if(rota.nome==="entrada") return <Entrada t={t} lang={lang} setLang={setLang} ultimo={ultimoPost(lang)}/>;
+
+ if(rota.nome!=="portfolio"){
   const post = rota.nome==="post" ? achaPost(rota.slug) : null;
   return <div className="min-h-screen overflow-x-hidden bg-[#f1efe8] text-[#111] selection:bg-lime-300">
    {barra}
