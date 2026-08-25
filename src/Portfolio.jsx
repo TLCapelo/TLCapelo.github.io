@@ -3,6 +3,8 @@ import { Linkedin, ArrowDownRight, X, RotateCw, Play, Pause, Leaf, Gamepad2, Boo
 import sescomp from "./assets/sescomp-2025.jpg";
 import { copy } from "./i18n";
 import { FlagBR, FlagUS } from "./Flags";
+import { ListaPosts, PaginaPost, PostNaoEncontrado } from "./Blog";
+import { achaPost } from "./posts";
 
 const LINKEDIN="https://www.linkedin.com/in/mxxcapelo";
 
@@ -20,6 +22,16 @@ const readLang=()=>{
  if(LANGS.includes(q))return q;
  const s=store.get();
  return LANGS.includes(s)?s:"pt";
+};
+
+// ---------- rota ----------
+// O hash decide a pagina: "#/blog" e "#/blog/slug" sao rotas de verdade.
+// Qualquer outro hash ("#sobre") continua sendo ancora de rolagem da home.
+const leRota=()=>{
+ const h=window.location.hash||"";
+ if(h.startsWith("#/blog/"))return {nome:"post", slug:decodeURIComponent(h.slice(7))};
+ if(h==="#/blog"||h==="#/blog/")return {nome:"blog"};
+ return {nome:"home", ancora:(h.length>1&&!h.startsWith("#/"))?h.slice(1):null};
 };
 
 function LangSwitch({lang,setLang,tone="dark",className=""}){
@@ -87,7 +99,21 @@ function Tetris({onClose,t}){
 export default function Portfolio(){
  const [game,setGame]=useState(false); const [menu,setMenu]=useState(false);
  const [lang,setLang]=useState(readLang);
+ const [rota,setRota]=useState(leRota);
  const t=copy[lang];
+
+ // A rota vem do hash. O menu mobile fecha sozinho ao navegar.
+ useEffect(()=>{
+  const aoTrocar=()=>{setRota(leRota());setMenu(false)};
+  addEventListener("hashchange",aoTrocar);
+  return()=>removeEventListener("hashchange",aoTrocar);
+ },[]);
+
+ // Trocou de pagina, volta ao topo. Clicou numa ancora, rola ate ela.
+ useEffect(()=>{
+  if(rota.nome==="home"&&rota.ancora) document.getElementById(rota.ancora)?.scrollIntoView();
+  else window.scrollTo(0,0);
+ },[rota]);
 
  // O idioma vira estado da URL (?lang=en) para o link em inglês ser compartilhável.
  useEffect(()=>{
@@ -100,9 +126,22 @@ export default function Portfolio(){
   window.history.replaceState({},"",u);
  },[lang,t]);
 
+ const barra = <><nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 md:px-10"><div className="flex items-center gap-4"><LangSwitch lang={lang} setLang={setLang}/><a href="#top" className="text-sm font-black tracking-tight text-white mix-blend-difference">MAXIMILIAN®</a></div><div className="flex items-center text-white mix-blend-difference"><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">{t.nav.sobre}</a><a href="#trajetoria">{t.nav.trajetoria}</a><a href="#projetos">{t.nav.projetos}</a><a href="#vida">{t.nav.vida}</a><a href="#/blog">{t.blog.nav}</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">{t.nav.tedio}</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>{t.nav.menu}</button></div></nav>{menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">{t.nav.sobre}</a><a onClick={()=>setMenu(false)} href="#trajetoria">{t.nav.trajetoria}</a><a onClick={()=>setMenu(false)} href="#projetos">{t.nav.projetos}</a><a onClick={()=>setMenu(false)} href="#vida">{t.nav.vida}</a><a onClick={()=>setMenu(false)} href="#/blog">{t.blog.nav}</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">{t.nav.tedio}</button><LangSwitch lang={lang} setLang={setLang} className="mt-4"/></div>}</>;
+
+ if(rota.nome!=="home"){
+  const post = rota.nome==="post" ? achaPost(rota.slug) : null;
+  return <div className="min-h-screen overflow-x-hidden bg-[#f1efe8] text-[#111] selection:bg-lime-300">
+   {barra}
+   {rota.nome==="blog"
+     ? <ListaPosts t={t} lang={lang}/>
+     : post ? <PaginaPost post={post} t={t} lang={lang}/> : <PostNaoEncontrado t={t}/>}
+   {game&&<Tetris onClose={()=>setGame(false)} t={t.tetris}/>}
+  </div>;
+ }
+
  return <main className="min-h-screen overflow-x-hidden bg-[#f1efe8] text-[#111] selection:bg-lime-300">
-  <nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 md:px-10"><div className="flex items-center gap-4"><LangSwitch lang={lang} setLang={setLang}/><a href="#top" className="text-sm font-black tracking-tight text-white mix-blend-difference">MAXIMILIAN®</a></div><div className="flex items-center text-white mix-blend-difference"><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">{t.nav.sobre}</a><a href="#trajetoria">{t.nav.trajetoria}</a><a href="#projetos">{t.nav.projetos}</a><a href="#vida">{t.nav.vida}</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">{t.nav.tedio}</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>{t.nav.menu}</button></div></nav>
-  {menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">{t.nav.sobre}</a><a onClick={()=>setMenu(false)} href="#trajetoria">{t.nav.trajetoria}</a><a onClick={()=>setMenu(false)} href="#projetos">{t.nav.projetos}</a><a onClick={()=>setMenu(false)} href="#vida">{t.nav.vida}</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">{t.nav.tedio}</button><LangSwitch lang={lang} setLang={setLang} className="mt-4"/></div>}
+  {barra}
+
   <header id="top" className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-[#101010] px-5 pb-12 pt-28 text-white md:px-10 md:pb-16"><div className="absolute -right-24 top-14 h-[420px] w-[420px] rounded-full bg-lime-300/20 blur-[110px]"/><p className="mb-6 font-mono text-xs uppercase tracking-[.3em] text-lime-300">{t.hero.eyebrow}</p><h1 className="max-w-6xl text-[15vw] font-black uppercase leading-[.75] tracking-[-.08em] md:text-[10vw]">{t.hero.h1a}<br/><span className="text-zinc-500">{t.hero.h1b}</span><br/>{t.hero.h1c}</h1><div className="mt-12 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-2"><p className="max-w-xl text-xl text-zinc-300">{t.hero.lead}</p><div className="flex items-end gap-3 md:justify-end"><a href="#projetos" className="rounded-full bg-lime-300 px-6 py-3 font-bold text-black">{t.hero.cta}</a><a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-full border border-white/20 p-3 transition hover:bg-white/10"><Linkedin/></a></div></div></header>
 
   <section id="sobre" className="px-5 py-24 md:px-10 md:py-40"><div className="mx-auto grid max-w-[1400px] gap-14 md:grid-cols-[.7fr_1.3fr]"><p className="font-mono text-xs uppercase tracking-[.25em]">{t.sobre.label}</p><div><h2 className="text-5xl font-black leading-[.95] tracking-[-.05em] md:text-8xl">{t.sobre.h2a}<br/><span className="text-zinc-400">{t.sobre.h2b}</span></h2><div className="mt-12 grid gap-8 text-lg leading-relaxed text-zinc-700 md:grid-cols-2"><p>{t.sobre.p1}</p><p>{t.sobre.p2}</p><p className="md:col-span-2">{t.sobre.p3}</p></div><div className="mt-12 grid grid-cols-2 border-y border-black/15 py-8 md:grid-cols-5">{t.sobre.stats.map((s,i)=><div key={s.l} className={i>1?"mt-8 md:mt-0":undefined}><b className="text-4xl md:text-5xl">{s.n}</b><p className="mt-2 text-sm text-zinc-500">{s.l}</p></div>)}</div></div></div></section>

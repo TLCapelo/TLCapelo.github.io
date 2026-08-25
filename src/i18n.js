@@ -74,6 +74,23 @@ export const copy = {
       films:["Shrek 2","The Iron Claw","O Lutador (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"]
     },
     contato:{label:"05 · Próxima conversa", cta:"Vamos construir?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
+    blog:{
+      nav:"Blog",
+      label:"Blog · textos e opinião",
+      tituloA:"Onde visões diferentes", tituloB:"se encontram.",
+      lede:"Algumas certezas desaparecem quando observamos o mesmo tema por outro ângulo.",
+      intro:"Este blog é uma coleção de reflexões sobre tecnologia, negócios, cultura, sociedade e outros assuntos que considero interessantes. Uma tentativa de organizar ideias e entender melhor perspectivas diferentes da minha.",
+      ler:"Ler", min:"min de leitura", voltar:"Voltar para o blog",
+      vazioTitulo:"Ainda não tem post por aqui.",
+      vazioTexto:"Os textos publicados até agora estão em português. Troque o idioma na bandeira do topo para lê-los.",
+      faleTitulo:"Quer conversar sobre isso?",
+      faleTexto:"Se o texto te tocou, discordou de você ou lembrou de alguma coisa, me escreve. Leio tudo e respondo.",
+      assunto:"Sobre o post",
+      comentarios:"Comentários",
+      comentariosNota:"Os comentários usam sua conta do GitHub e ficam guardados nas Discussions do repositório deste site.",
+      rodapeApoio:"Se você está passando por sofrimento emocional, o CVV atende de graça, 24 horas por dia, pelo telefone 188 e no site cvv.org.br.",
+      naoAchou:"Post não encontrado."
+    },
     tetris:{fechar:"Fechar", label:"Tédio resolvido", controles:"← → mover · ↑ girar · ↓ descer · espaço pausar", pontos:"pontos", fim:"Fim de jogo.", pausado:"Pausado.", pausar:"Pausar", continuar:"Continuar", girar:"Girar", recomecar:"Recomeçar", descer:"↓ descer"}
   },
 
@@ -149,6 +166,23 @@ export const copy = {
       films:["Shrek 2","The Iron Claw","The Wrestler (2008)","Paris, Texas","Blade Runner 2049","Drive (2011)"]
     },
     contato:{label:"05 · Next conversation", cta:"Let's build something?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
+    blog:{
+      nav:"Blog",
+      label:"Blog · essays and opinion",
+      tituloA:"Where different", tituloB:"views meet.",
+      lede:"Some certainties disappear when we look at the same subject from another angle.",
+      intro:"This blog is a collection of reflections on technology, business, culture, society and other subjects I find interesting. An attempt to organize ideas and to better understand perspectives other than my own.",
+      ler:"Read", min:"min read", voltar:"Back to the blog",
+      vazioTitulo:"Nothing here yet.",
+      vazioTexto:"Everything published so far is in Portuguese. Switch the language on the flag at the top to read it.",
+      faleTitulo:"Want to talk about it?",
+      faleTexto:"If the piece moved you, annoyed you or reminded you of something, write to me. I read everything and I answer.",
+      assunto:"About the post",
+      comentarios:"Comments",
+      comentariosNota:"Comments use your GitHub account and live in the Discussions of this site's repository.",
+      rodapeApoio:"If you are going through emotional distress, help is available. In Brazil, CVV answers free of charge, 24 hours a day, on 188 and at cvv.org.br.",
+      naoAchou:"Post not found."
+    },
     tetris:{fechar:"Close", label:"Boredom solved", controles:"← → move · ↑ rotate · ↓ drop · space to pause", pontos:"points", fim:"Game over.", pausado:"Paused.", pausar:"Pause", continuar:"Resume", girar:"Rotate", recomecar:"Restart", descer:"↓ drop"}
   }
 };
