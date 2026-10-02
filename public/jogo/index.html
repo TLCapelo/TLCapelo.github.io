@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#100f0d" />
+    <meta name="description" content="Juramento de 20 Anos: um livro-aventura sobre memória, guerra e o destino de Valedorn." />
+    <title>Juramento de 20 Anos · Crônicas de Valedorn</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23100f0d'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23d6a84f'%3EIII%3C/text%3E%3C/svg%3E" />
+    
+    <link rel="modulepreload" crossorigin href="./assets/motion-4gVH-yfV.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-CpBjjZgu.js">
+    <link rel="modulepreload" crossorigin href="./assets/icons-zFST94t-.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BuM_tr6f.css">
+  </head>
+  <body>
+    <div id="juramento-gate" role="dialog" aria-labelledby="jg-title">
+      <form id="jg-form" autocomplete="off">
+        <p class="jg-eyebrow">PROTÓTIPO EM DESENVOLVIMENTO</p>
+        <h1 id="jg-title">Juramento<br /><em>de 20 Anos</em></h1>
+        <p class="jg-text">O jogo ainda está em construção. Por enquanto, o acesso é só com chave.</p>
+        <label for="jg-key">Chave de acesso</label>
+        <input id="jg-key" type="password" inputmode="numeric" autocomplete="off" required />
+        <label class="jg-remember"><input id="jg-remember" type="checkbox" checked /> Lembrar neste aparelho</label>
+        <button id="jg-submit" type="submit">Entrar</button>
+        <p id="jg-message" role="status" aria-live="polite"></p>
+        <a class="jg-back" href="../">Voltar ao site</a>
+      </form>
+    </div>
+    <style>
+      #juramento-gate { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: radial-gradient(circle at 50% 0%, rgba(99,70,38,.25), transparent 45%), #100f0d; color: #eee9dc; font-family: "DM Mono", ui-monospace, monospace; }
+      #jg-form { width: min(420px, 100%); display: grid; gap: 10px; padding: 34px 30px; border: 1px solid rgba(214,168,79,.42); border-radius: 18px; background: rgba(26,24,20,.92); box-shadow: 0 30px 100px rgba(0,0,0,.5); }
+      .jg-eyebrow { margin: 0; color: #edc979; font-size: 10px; letter-spacing: .2em; }
+      #jg-title { margin: 6px 0 4px; font: 700 46px/.95 "Libre Baskerville", Georgia, serif; letter-spacing: -.05em; color: #fbf1db; }
+      #jg-title em { color: #d6a84f; font-style: normal; }
+      .jg-text { margin: 0 0 10px; color: #9c9688; font-size: 12px; line-height: 1.6; }
+      #juramento-gate label { color: #9c9688; font-size: 11px; }
+      #jg-key { padding: 13px 12px; border: 1px solid rgba(239,227,196,.16); border-radius: 9px; background: rgba(255,255,255,.05); color: #eee9dc; font: inherit; font-size: 18px; letter-spacing: .3em; outline: 0; }
+      #jg-key:focus { border-color: #d6a84f; }
+      .jg-remember { display: flex; align-items: center; gap: 8px; }
+      .jg-remember input { accent-color: #d6a84f; }
+      #jg-submit { margin-top: 6px; padding: 13px; border: 0; border-radius: 10px; background: #d6a84f; color: #211a0e; font: inherit; font-weight: 700; cursor: pointer; }
+      #jg-submit:disabled { opacity: .6; cursor: wait; }
+      #jg-message { min-height: 16px; margin: 0; color: #d88778; font-size: 11px; }
+      .jg-back { color: #6f6a5e; font-size: 10px; text-align: center; }
+    </style>
+    <script type="module">
+      const LOCK = "./assets/game-05e5f3a45a.lock.json";
+      const SAVED = "juramento-chave-v1";
+      const form = document.getElementById("jg-form");
+      const input = document.getElementById("jg-key");
+      const remember = document.getElementById("jg-remember");
+      const submit = document.getElementById("jg-submit");
+      const message = document.getElementById("jg-message");
+      const fromB64 = (text) => Uint8Array.from(atob(text), (char) => char.charCodeAt(0));
+      const toB64 = (buffer) => btoa(String.fromCharCode(...new Uint8Array(buffer)));
+      let lockPromise;
+      const getLock = () => (lockPromise ??= fetch(LOCK, { cache: "no-cache" }).then((response) => { if (!response.ok) throw new Error("lock"); return response.json(); }));
+      async function deriveKey(password, lock) {
+        const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+        return crypto.subtle.deriveKey({ name: "PBKDF2", salt: fromB64(lock.salt), iterations: lock.iterations, hash: "SHA-256" }, material, { name: "AES-GCM", length: 256 }, true, ["decrypt"]);
+      }
+      async function openGame(key, lock) {
+        const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(lock.iv) }, key, fromB64(lock.data));
+        const base = new URL("./assets", location.href).href;
+        const code = new TextDecoder().decode(plain).split("__ASSETS__").join(base);
+        const url = URL.createObjectURL(new Blob([code], { type: "text/javascript" }));
+        document.getElementById("juramento-gate").remove();
+        await import(url);
+      }
+      async function trySaved() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(SAVED) ?? "null");
+          if (!saved) return;
+          const lock = await getLock();
+          if (saved.salt !== lock.salt) { localStorage.removeItem(SAVED); return; }
+          const key = await crypto.subtle.importKey("raw", fromB64(saved.key), { name: "AES-GCM" }, true, ["decrypt"]);
+          await openGame(key, lock);
+        } catch { try { localStorage.removeItem(SAVED); } catch {} }
+      }
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        message.textContent = "";
+        submit.textContent = "Abrindo...";
+        try {
+          const lock = await getLock();
+          const key = await deriveKey(input.value, lock);
+          await openGame(key, lock);
+          if (remember.checked) { try { localStorage.setItem(SAVED, JSON.stringify({ salt: lock.salt, key: toB64(await crypto.subtle.exportKey("raw", key)) })); } catch {} }
+        } catch (error) {
+          message.textContent = error && error.name === "OperationError" ? "Chave incorreta." : "Não foi possível abrir o jogo. Verifique a conexão e tente de novo.";
+          submit.disabled = false;
+          submit.textContent = "Entrar";
+          input.select();
+        }
+      });
+      if (!window.isSecureContext || !crypto.subtle) message.textContent = "Abra esta página por https para usar a chave.";
+      trySaved();
+    </script>
+    <div id="root"></div>
+  </body>
+</html>

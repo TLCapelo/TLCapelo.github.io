@@ -1,12 +1,12 @@
 import React from "react";
-import { ArrowUpRight, Linkedin } from "lucide-react";
+import { ArrowUpRight, Linkedin, Lock } from "lucide-react";
 import LangSwitch from "./LangSwitch";
 import { formataData } from "./posts";
 
 const LINKEDIN = "https://www.linkedin.com/in/mxxcapelo";
 
-function Porta({ href, label, titulo, texto, rodape, destaque }){
- const base = "group flex flex-col justify-between rounded-[2rem] border p-8 transition md:p-10";
+function Porta({ href, label, titulo, texto, rodape, destaque, largo, trancada }){
+ const base = `group flex flex-col justify-between rounded-[2rem] border p-8 transition md:p-10 ${largo?"md:col-span-2":""}`;
  const cor = destaque
   ? "border-lime-300 bg-lime-300 text-black hover:bg-lime-200"
   : "border-white/15 hover:border-white/40 hover:bg-white/[.04]";
@@ -17,7 +17,7 @@ function Porta({ href, label, titulo, texto, rodape, destaque }){
    <p className={`mt-4 max-w-sm text-lg ${destaque?"text-black/70":"text-zinc-400"}`}>{texto}</p>
   </div>
   <div className="mt-12 flex items-end justify-between gap-4">
-   <span className={`text-sm ${destaque?"text-black/60":"text-zinc-500"}`}>{rodape}</span>
+   <span className={`flex items-center gap-2 text-sm ${destaque?"text-black/60":"text-zinc-500"}`}>{trancada && <Lock size={14}/>}{rodape}</span>
    <ArrowUpRight className="shrink-0 transition group-hover:-translate-y-1 group-hover:translate-x-1" size={34} strokeWidth={2}/>
   </div>
  </a>;
@@ -47,6 +47,9 @@ export default function Entrada({ t, lang, setLang, ultimo }){
      label={t.entrada.blogLabel} titulo={t.entrada.blogTitulo}
      texto={t.entrada.blogTexto}
      rodape={ultimo ? `${t.entrada.blogUltimo}: ${ultimo.titulo}` : t.entrada.blogVazio}/>
+    <Porta largo trancada href="./jogo/"
+     label={t.entrada.jogoLabel} titulo={t.entrada.jogoTitulo}
+     texto={t.entrada.jogoTexto} rodape={t.entrada.jogoRodape}/>
    </div>
   </div>
 

@@ -86,7 +86,10 @@ export const copy = {
       portfolioRodape:"Projetos, trajetória e contato",
       blogLabel:"As ideias", blogTitulo:"Blog",
       blogTexto:"Onde visões diferentes se encontram. Tecnologia, negócios, cultura, sociedade.",
-      blogUltimo:"Mais recente", blogVazio:"Em breve"
+      blogUltimo:"Mais recente", blogVazio:"Em breve",
+      jogoLabel:"O protótipo", jogoTitulo:"Juramento de 20 Anos",
+      jogoTexto:"Um RPG narrativo que estou construindo. Memória, guerra e escolhas que fecham caminhos.",
+      jogoRodape:"Em desenvolvimento · acesso com chave"
     },
     blog:{
       nav:"Blog",
@@ -192,7 +195,10 @@ export const copy = {
       portfolioRodape:"Projects, experience and contact",
       blogLabel:"The ideas", blogTitulo:"Blog",
       blogTexto:"Where different views meet. Technology, business, culture, society.",
-      blogUltimo:"Latest", blogVazio:"Coming soon"
+      blogUltimo:"Latest", blogVazio:"Coming soon",
+      jogoLabel:"The prototype", jogoTitulo:"Juramento de 20 Anos",
+      jogoTexto:"A narrative RPG I am building, in Portuguese. Memory, war and choices that close paths.",
+      jogoRodape:"In development · access key required"
     },
     blog:{
       nav:"Blog",
