@@ -6,6 +6,7 @@ import LangSwitch from "./LangSwitch";
 import { ListaPosts, PaginaPost, PostNaoEncontrado } from "./Blog";
 import { achaPost, ultimoPost } from "./posts";
 import Entrada from "./Entrada";
+import Simulador from "./Simulador";
 
 const LINKEDIN="https://www.linkedin.com/in/mxxcapelo";
 
@@ -33,6 +34,7 @@ const leRota=()=>{
  const h=window.location.hash||"";
  if(h.startsWith("#/blog/"))return {nome:"post", slug:decodeURIComponent(h.slice(7))};
  if(h==="#/blog"||h==="#/blog/")return {nome:"blog"};
+ if(h==="#/simulador"||h==="#/simulador/")return {nome:"simulador"};
  if(h==="#/portfolio"||h==="#/portfolio/")return {nome:"portfolio", ancora:null};
  if(h.length>1&&!h.startsWith("#/"))return {nome:"portfolio", ancora:h.slice(1)};
  return {nome:"entrada"};
@@ -119,6 +121,8 @@ export default function Portfolio(){
  },[lang,t]);
 
  const barra = <><nav className="fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 md:px-10"><div className="flex items-center gap-4"><LangSwitch lang={lang} setLang={setLang}/><a href="#/" className="text-sm font-black tracking-tight text-white mix-blend-difference">MAXIMILIAN®</a></div><div className="flex items-center text-white mix-blend-difference"><div className="hidden gap-7 text-sm md:flex"><a href="#sobre">{t.nav.sobre}</a><a href="#trajetoria">{t.nav.trajetoria}</a><a href="#projetos">{t.nav.projetos}</a><a href="#vida">{t.nav.vida}</a><a href="#/blog">{t.blog.nav}</a><button onClick={()=>setGame(true)} className="font-bold text-lime-300">{t.nav.tedio}</button></div><button className="md:hidden" onClick={()=>setMenu(!menu)}>{t.nav.menu}</button></div></nav>{menu&&<div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black text-4xl text-white"><a onClick={()=>setMenu(false)} href="#sobre">{t.nav.sobre}</a><a onClick={()=>setMenu(false)} href="#trajetoria">{t.nav.trajetoria}</a><a onClick={()=>setMenu(false)} href="#projetos">{t.nav.projetos}</a><a onClick={()=>setMenu(false)} href="#vida">{t.nav.vida}</a><a onClick={()=>setMenu(false)} href="#/blog">{t.blog.nav}</a><button onClick={()=>{setGame(true);setMenu(false)}} className="text-lime-300">{t.nav.tedio}</button><LangSwitch lang={lang} setLang={setLang} className="mt-4"/></div>}</>;
+
+ if(rota.nome==="simulador") return <Simulador t={t} lang={lang} setLang={setLang}/>;
 
  if(rota.nome==="entrada") return <Entrada t={t} lang={lang} setLang={setLang} ultimo={ultimoPost(lang)}/>;
 

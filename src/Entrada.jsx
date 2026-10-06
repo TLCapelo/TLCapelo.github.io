@@ -47,9 +47,12 @@ export default function Entrada({ t, lang, setLang, ultimo }){
      label={t.entrada.blogLabel} titulo={t.entrada.blogTitulo}
      texto={t.entrada.blogTexto}
      rodape={ultimo ? `${t.entrada.blogUltimo}: ${ultimo.titulo}` : t.entrada.blogVazio}/>
-    <Porta largo trancada href="./jogo/"
+    <Porta trancada href="./jogo/"
      label={t.entrada.jogoLabel} titulo={t.entrada.jogoTitulo}
      texto={t.entrada.jogoTexto} rodape={t.entrada.jogoRodape}/>
+    <Porta href="#/simulador"
+     label={t.entrada.simLabel} titulo={t.entrada.simTitulo}
+     texto={t.entrada.simTexto} rodape={t.entrada.simRodape}/>
    </div>
   </div>
 

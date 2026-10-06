@@ -91,3 +91,8 @@ html {
   .post { font-size: 1.25rem; }
   .post h2 { font-size: 2.4rem; }
 }
+
+/* Demo do simulador: entrada suave dos pontos a cada ciclo */
+@keyframes sim-pop { from { opacity: 0; } to { opacity: 1; } }
+.sim-pop { animation: sim-pop .35s ease-out; }
+@media (prefers-reduced-motion: reduce) { .sim-pop { animation: none; } }
