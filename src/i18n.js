@@ -113,7 +113,8 @@ export const copy = {
     },
     sim:{
       eyebrow:"Estudo · simulação",
-      h1a:"Quando o melhor", h1b:"de muitos é sorte.",
+      h1a:"Evoluiu", h1b:"ou teve sorte?",
+      sub:"Medir mal pode parecer progresso.",
       lead:"Um sistema que tenta se melhorar sozinho gera dezenas de versões candidatas por ciclo. Se ele escolher a que parece melhor, vai promover sorte e achar que evoluiu. Mexa nos controles e veja isso acontecer.",
       demoLabel:"Demonstração interativa",
       ruido:"Ruído da medição", ruidoHint:"O quanto cada medição erra. Zero seria um mundo perfeito.",
@@ -306,15 +307,16 @@ export const copy = {
     },
     sim:{
       eyebrow:"Study · simulation",
-      h1a:"When the best", h1b:"of many is luck.",
-      lead:"A system that tries to improve itself produces dozens of candidate versions per cycle. If it picks the one that looks best, it will promote luck and believe it evolved. Play with the controls and watch it happen.",
+      h1a:"Real progress,", h1b:"or just luck?",
+      sub:"Bad measurement may look like progress.",
+      lead:"A system that tries to improve itself produces dozens of candidate versions every cycle. If it picks the one that looks best, it ends up promoting luck and thinking it has evolved. Play with the controls and watch it happen.",
       demoLabel:"Interactive demo",
-      ruido:"Measurement noise", ruidoHint:"How much each measurement is off. Zero would be a perfect world.",
+      ruido:"Measurement noise", ruidoHint:"How far off each measurement is. Zero would be a perfect world.",
       tentativas:"Tries per cycle", tentativasHint:"How many candidates are generated and compared in each cycle.",
       capacidade:"Real average improvement", capacidadeHint:"How much better a typical candidate really is than the current version.",
-      tocar:"Play", pausar:"Pause", repetir:"Replay", reiniciar:"Restart", novaSemente:"Another run", ciclo:"Cycle",
-      curvaTitulo:"My first test", curvaSub:"x = x0 · e^(k · y). No cost, no noise, no safeguards. (I felt very smart coming up with this algorithm, I have to admit)", curvaK:"Improvement rate per version (k)",
-      curvaLegenda:"With a fixed rate the curve only goes up. Nothing in it holds the process back, so it says nothing about what the post argued.",
+      tocar:"Play", pausar:"Pause", repetir:"Replay", reiniciar:"Restart", novaSemente:"New run", ciclo:"Cycle",
+      curvaTitulo:"My first test", curvaSub:"x = x0 · e^(k · y). No cost, no noise, no safeguards. (I felt pretty clever coming up with this algorithm, I have to admit)", curvaK:"Improvement rate per version (k)",
+      curvaLegenda:"With a fixed rate, the curve just keeps climbing. Nothing in it holds the process back, so it tells us nothing about what the post was arguing.",
       graficoTitulo:"Real value of the active version", graficoSub:"Only the simulator knows this number. The policies never see it directly.",
       eixoX:"cycles",
       pol:{ingenua:"Naive", holdout:"With holdout", aleatoria:"Random", sem_evolucao:"No evolution"},
@@ -324,66 +326,66 @@ export const copy = {
       nuvemPromovido:"The winner was promoted.", nuvemRecusado:"The winner was rejected.",
       nuvemVencedor:"It looked like a gain of", nuvemReal:"but the real gain is",
       eixoReal:"real gain (invisible to the system)", eixoMedido:"measured gain",
-      dispersaoAria:"Candidate scatter: real gain against measured gain",
-      barrasTitulo:"What it believed against what happened", barrasSub:"Sum of gains over the cycles.",
-      achou:"Believed it gained", ganhou:"Actually gained",
+      dispersaoAria:"Candidate scatter plot: real gain against measured gain",
+      barrasTitulo:"What it thought happened vs. what did", barrasSub:"Total gains across all cycles.",
+      achou:"Thought it gained", ganhou:"Actually gained",
       contadorTitulo:"Promotions that made the system worse", contadorSub:"Promoted versions whose real gain was zero or negative.",
       falsasLabel:"false promotions / promotions",
-      multTitulo:"One run misleads. Forty do not.",
-      multTexto:"The same control settings, run 40 times with different seeds. This table changes when you move the controls above.",
-      colPolitica:"Policy", colReal:"Final real value", colAchou:"Believed it gained", colFalsas:"False promotions", colPromo:"Promotions",
-      multHonesto:"Notice that the holdout policy does not always end with the highest real value. It errs less, but promotes less. Safety has a price, and hiding it would be the same mistake this study tries to avoid.",
+      multTitulo:"One run can mislead you. Forty can't.",
+      multTexto:"The same control settings, run 40 times with different seeds. This table updates when you move the controls above.",
+      colPolitica:"Policy", colReal:"Final real value", colAchou:"Thought it gained", colFalsas:"False promotions", colPromo:"Promotions",
+      multHonesto:"Notice that the holdout policy doesn't always end up with the highest real value. It makes fewer mistakes, but it promotes less. Safety has a price, and hiding that would be the very mistake this study is trying to avoid.",
       secoes:[
         {titulo:"Where the idea came from",
          paragrafos:[
-          "I saw a post saying that even if the first model capable of starting a recursive self-improvement process already existed, it would still take a long time before we saw significant gains. The reasons given were the cost of training and the very parameters that make this field a brand new world.",
-          "Everything there is very recent and researchers learn piece by piece. The fewer safety nets, the faster they learn, but the greater the danger.",
-          "I wanted to test it with something very simple: an exponential growth curve, with no costs, no noise and no safeguards at all. The result, of course, showed growth much faster than I had imagined. That is when I realized a test like that does not measure what the post argued, because it has none of the parameters that hold the process back in real life. So I started adding those parameters one by one, until it became what is on this page."
+          "I saw a post arguing that even if the first model capable of starting a recursive self-improvement process already existed, it would still take a long time before we saw significant gains. The reasons were the cost of training and the parameters that make this whole field feel like a new world.",
+          "Everything there is very recent, and researchers are learning one piece at a time. The fewer the safeguards, the faster they learn, but the greater the danger.",
+          "I wanted to test it with something really simple: an exponential growth curve, with no costs, no noise and no safeguards at all. Of course, it showed growth far faster than I expected. That's when I realized a test like that doesn't measure what the post was arguing, because it has none of the parameters that hold the process back in real life. So I started adding those parameters one by one, until it became what you see on this page."
          ]},
         {titulo:"A classroom",
          paragrafos:[
-          "All of us were once children in a classroom with other children learning. Each one was different: family background, IQ, interests. Now imagine everyone started from the same line, and the only difference was the teacher teaching each student in a slightly different way, to see how each approach helps or hinders learning. At the end of the school year, the teacher would pick the method that gave the best result.",
-          "How much of that result was a real improvement from the method? How much was luck? How much was a factor nobody was seeing? How much was an error the teacher did not notice when measuring?",
-          "It is the same problem as recursive AI improvement. Each candidate is a student, each cycle is a school year, and the measured grade is only an estimate of what each one really learned."
+          "We were all kids in a classroom once, surrounded by other kids learning. Every one of them was different: family background, IQ, interests. Now imagine everyone started from the same line, and the only difference was that the teacher taught each student a little differently, to see how each approach helps or gets in the way. At the end of the school year, the teacher would pick whichever method gave the best result.",
+          "How much of that result was a real improvement thanks to the method? How much was luck? How much was a factor nobody was looking at? How much was a mistake the teacher didn't catch while measuring?",
+          "It's the same problem with recursive AI improvement. Each candidate is a student, each cycle is a school year, and the measured grade is only an estimate of what each one actually learned."
          ]},
         {titulo:"What the demo does",
          paragrafos:[
-          "I built this simulator with some metrics I thought were fair for the case and others I researched. It is written as a plain algorithm, with no AI running behind it, only to illustrate the reasoning: how much an AI would get its measurements wrong, the luck involved, how the numbers change from cycle to cycle, how measurement noise hurts growth and, of course, what the final improvement is.",
-          "In each cycle the system generates candidates for a new version. Each candidate has a real gain over the current version, which the simulator knows and the system does not. The system only sees one measurement, and every measurement carries some level of noise.",
-          "I put two ways of deciding side by side. The naive one has no safeguards: it takes the candidate that looks best and promotes it if the measured gain passes a minimum. The holdout one has the safety net: it measures the candidate and the current version again, in pairs, and only promotes if the gain holds up at 95% confidence. The other two are references: one promotes a randomly drawn candidate, the other never promotes anything.",
-          "How the confidence is calculated: the holdout policy takes 30 fresh measurements of the candidate and 30 of the current version, and computes the difference in each pair. It averages those 30 differences and measures how much that average could still wobble by chance, which is the spread of the differences divided by the square root of 30. Then it subtracts 1.64 times that wobble from the average. The 1.64 is the number that corresponds to 95% confidence on a normal curve, looking at one side only. The result is the worst reasonable gain: with 95% confidence, the real gain is at least this value. Promotion only happens if that worst case still passes the minimum. Example: if the measured average gain was 0.05 and the wobble was 0.03, the worst case is 0.05 − 1.64 × 0.03, which is about 0.00. That does not pass the minimum of 0.01, so the candidate is rejected, even with an average that looked good. The naive policy, which looks at a single measurement, would promote it."
+          "I built this simulator using some metrics I thought were fair for the case, plus a few I researched. It's written as a plain algorithm, with no AI running behind it, just to illustrate the reasoning: how often an AI would get its measurements wrong, how much luck is involved, how the numbers change from cycle to cycle, how measurement noise gets in the way of growth and, of course, what the improvement ends up being.",
+          "In each cycle, the system generates candidates for a new version. Every candidate has a real gain over the current version, which the simulator knows and the system doesn't. The system only sees a measurement, and every measurement carries some amount of noise.",
+          "I put two ways of deciding side by side. The naive one has no safeguards: it takes the candidate that looks best and promotes it if the measured gain clears a minimum. The holdout one has the safety net: it measures the candidate and the current version again, in pairs, and only promotes if the gain holds up at 95% confidence. The other two are baselines: one promotes a randomly picked candidate, and the other never promotes anything.",
+          "Here is how the confidence is calculated. The holdout policy takes 30 fresh measurements of the candidate and 30 of the current version, and works out the difference for each pair. It averages those 30 differences and then estimates how much that average could still be off by chance, which is the spread of the differences divided by the square root of 30. Then it subtracts 1.64 times that margin from the average. The 1.64 is the number that matches 95% confidence on a normal curve, looking at one side only. The result is the worst reasonable gain: with 95% confidence, the real gain is at least that much. A promotion only happens if even that worst case clears the minimum. For example, if the measured average gain was 0.05 and the margin was 0.03, the worst case is 0.05 − 1.64 × 0.03, which is about 0.00. That doesn't clear the minimum of 0.01, so the candidate is rejected, even though the average looked good. The naive policy, which relies on a single measurement, would promote it."
          ]},
-        {titulo:"The trap: the winner among many",
+        {titulo:"The trap: the winner out of many",
          paragrafos:[
-          "Look at the dot chart. The candidates that seem strongest, near the top, are in large part candidates that got lucky in the measurement. It is the teacher rewarding the student who did well on the test by chance. The more tries and the more noise, the more the top of the list is made of measurement error and not of quality.",
-          "This is called the winner's curse. Picking the maximum of many noisy measurements systematically overestimates the winner. In the bars, the naive policy records a huge gain while the real value barely moves. It believes it evolved, and it did not."
+          "Look at the dot chart. The candidates that look strongest, way up at the top, are largely the ones that got lucky in the measurement. It's like a teacher rewarding the student who happened to ace the test by chance. The more tries and the more noise, the more the top of the list is made of measurement error rather than quality.",
+          "This is known as the winner's curse. Picking the best out of many noisy measurements systematically overestimates the winner. Look at the bars: the naive policy records a huge gain while the real value barely moves. It believes it has evolved, and it hasn't."
          ]},
         {titulo:"How I noticed",
          paragrafos:[
-          "My first test was a simple growth curve, and it climbed far too fast. When I raised the level, I saw that increasing the number of tries per cycle raised the gain almost by itself, without the system getting better at anything. That bothered me, because growth like that should have more obstacles.",
-          "I went to check it. And then it hit me: what does the system know, and what does only the simulator know? Once I separated the real value from the measured value, the problem showed up. Decisions were made on the measured number, and the simulator never checked against the true one.",
-          "The fix followed: re-measure the chosen candidate with fresh, independent measurements, compare in pairs against the current version, and require the lower bound of the gain's confidence interval to pass the minimum. In the original study, with measurement noise of 0.20, the naive policy got 10.5% of its promotions wrong. The holdout policy got 0%."
+          "My first test was a simple growth curve, and it climbed way too fast. When I raised the level, I saw that increasing the number of tries per cycle increased the gain almost on its own, without the system getting any better at anything. That bothered me, because growth like that should run into more obstacles.",
+          "So I went back and checked. And then it hit me: what does the system know, and what does only the simulator know? Once I separated the real value from the measured value, the problem showed up. Decisions were made on the measured number, and the simulator never checked it against the true one.",
+          "The fix followed: re-measure the chosen candidate with fresh, independent measurements, compare it in pairs against the current version, and require the lower bound of the gain's confidence interval to clear the minimum. In the original study, with measurement noise of 0.20, the naive policy got 10.5% of its promotions wrong. The holdout policy got 0%."
          ]},
         {titulo:"What else I needed to measure",
-         paragrafos:["Fixing promotion was not enough. To trust any result from the simulator, these pieces were missing:"],
+         paragrafos:["Fixing promotion wasn't enough. To trust any result from the simulator, these pieces were still missing:"],
          lista:[
-          {t:"A reference that does not evolve.", d:"Without it there is no way to tell whether the system improved or the environment changed."},
-          {t:"Many seeds, with a confidence interval.", d:"One run only tells one version. The table above exists for this reason."},
-          {t:"Real value kept apart from measured value.", d:"Only then can you count how many promotions were false."},
-          {t:"Looking at the worst scenario, not just the average.", d:"A severe failure in the critical scenario cannot be offset by a good normal scenario."},
+          {t:"A baseline that doesn't evolve.", d:"Without it, there's no way to tell whether the system improved or the environment just changed."},
+          {t:"Many seeds, with a confidence interval.", d:"A single run only tells one version of the story. That's why the table above exists."},
+          {t:"Real value kept separate from measured value.", d:"That's the only way to count how many promotions were false."},
+          {t:"Looking at the worst scenario, not just the average.", d:"A serious failure in the critical scenario can't be offset by a good normal one."},
           {t:"Separate costs.", d:"Research, validation and wall-clock time are different things, and holdout spends more on validation."},
-          {t:"Rollback with a verified destination.", d:"Revert only to the previous version, after measuring that it is really better, with a cooldown to avoid flip-flopping."},
-          {t:"A drift monitor.", d:"PSI, Wasserstein distance, CUSUM and EWMA to notice when the environment changes regime."},
-          {t:"Risk calibration.", d:"A predicted risk of 20% has to match about 20% of real incidents."}
+          {t:"Rollback with a verified destination.", d:"Only revert to the previous version after measuring that it's actually better, and with a cooldown period to avoid flip-flopping."},
+          {t:"A drift monitor.", d:"PSI, Wasserstein distance, CUSUM and EWMA, to notice when the environment shifts to a new regime."},
+          {t:"Risk calibration.", d:"A predicted risk of 20% should correspond to roughly 20% of real incidents."}
          ]},
-        {titulo:"What is left out",
+        {titulo:"What's left out",
          paragrafos:[
-          "This demo does not measure training cost. That is something obvious: everyone knows that training large models is expensive and slow, and that this weighs on any recursive improvement process. I left it out on purpose, as a starting point and not as something I could test or validate.",
-          "Risk works the same way. Here the danger is only the false promotion, a small and abstract harm. The real danger is treated as fact by the people at the center of the subject: in June 2026, a US executive order began inviting companies to hand the government, up to 30 days before release, frontier models with cybersecurity capabilities for evaluation. That already shows how seriously the risk is taken.",
-          "What the demo shows is only the part that can be measured without real data: the safeguard has a price. In the table, the holdout policy promotes far less and, in several settings, ends with a lower real value than the naive one. Whoever has safeguards errs less and moves more slowly. Whoever does not learns faster and takes more risk. How much is that worth? Only real-world data can answer."
+          "This demo doesn't measure training cost. That's something obvious: everyone knows that training large models is expensive and slow, and that it weighs on any recursive improvement process. I left it out on purpose, as a starting point rather than something I could test or validate.",
+          "Risk works the same way. Here the danger is only the false promotion, a small and abstract harm. The real danger is treated as fact by the people at the center of the subject: in June 2026, a US executive order began inviting companies to hand the government, up to 30 days before release, their frontier models with cybersecurity capabilities for evaluation. That already shows how seriously the risk is taken.",
+          "What the demo shows is only the part that can be measured without real data: safeguards have a price. In the table, the holdout policy promotes far less and, in several settings, ends up with a lower real value than the naive one. Whoever has safeguards makes fewer mistakes and moves more slowly. Whoever doesn't learns faster and takes on more risk. How much is that worth? Only real-world data can answer."
          ]}
       ],
-      aviso:"This is not a complete simulator, nor something that could be taken to a professional level. No parameter here comes from real data: every number is an assumption used to illustrate the method. The demo shows a real statistical trap, but it does not predict the behavior of any actual system."
+      aviso:"This is not a complete simulator, nor something that could be taken to a professional level. None of the parameters here come from real data: every number is an assumption used to illustrate the method. The demo shows a real statistical trap, but it doesn't predict how any actual system would behave."
     },
     tetris:{fechar:"Close", label:"Boredom solved", controles:"← → move · ↑ rotate · ↓ drop · space to pause", pontos:"points", fim:"Game over.", pausado:"Paused.", pausar:"Pause", continuar:"Resume", girar:"Rotate", recomecar:"Restart", descer:"↓ drop"}
   }

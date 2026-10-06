@@ -145,7 +145,8 @@ export default function Simulador({ t, lang, setLang }) {
    <section className="py-16 md:py-24">
     <p className="font-mono text-xs uppercase tracking-[.3em] text-lime-300">{s.eyebrow}</p>
     <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[.9] tracking-[-.06em] md:text-8xl">{s.h1a}<br/><span className="text-zinc-600">{s.h1b}</span></h1>
-    <p className="mt-8 max-w-2xl text-lg text-zinc-400">{s.lead}</p>
+    <p className="mt-6 text-2xl font-bold text-lime-300 md:text-3xl">{s.sub}</p>
+    <p className="mt-6 max-w-2xl text-lg text-zinc-400">{s.lead}</p>
    </section>
 
    {/* ---------- demo ---------- */}
