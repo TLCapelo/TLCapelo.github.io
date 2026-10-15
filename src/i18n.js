@@ -53,26 +53,36 @@ export const copy = {
       label:"03 · Projetos selecionados", h2a:"Impacto,", h2b:"não features.",
       nota:"Projetos profissionais descritos sem dados confidenciais. Arquiteturas, decisões técnicas e exemplos genéricos podem ser apresentados em uma conversa."
     },
-        estudos:{
-          label:"04 · Estudos & Experimentos",
-          nav:"Estudos",
-          h2a:"Dados,", h2b:"pipeline,", h2c:"insights.",
-          nota:"Projetos de estudo com código aberto, pipelines automatizados e dashboards públicos. Código, dados e documentação disponíveis no GitHub.",
-          projects:[
-            {
-              type:"Engenharia de Dados",
-              title:"Pipeline Diário: Clima + Crypto + Economia",
-              metric:"3 APIs · 100% automatizado",
-              detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet → CSV público → Power BI",
-              text:"Pipeline ETL completo com atualização diária via GitHub Actions às 06h BRT. Extrai dados de 10 cidades brasileiras, 10 criptomoedas e 15 indicadores do BCB. Transforma, valida, particiona em Parquet e disponibiliza CSVs para Power BI Web Connector, além de medidas DAX e guia de conexão.",
-              stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
-              github:"https://github.com/TLCapelo/Dados",
-              demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
-              demoLabel:"CSV de exemplo",
-              status:"Ativo"
-            }
-          ]
+    estudos:{
+      label:"03 · Projetos de estudo",
+      nav:"Estudos",
+      title:"Projetos de estudo",
+      intro:"Experimentos para aprender construindo: um simulador sobre melhoria contínua e um pipeline de dados atualizado diariamente.",
+      projects:[
+        {
+          type:"Simulador · autodesenvolvimento",
+          title:"Simulador de sistema de autodesenvolvimento",
+          metric:"Interativo · estudo, não produto",
+          detail:"Um experimento sobre seleção, ruído e risco de confundir sorte com evolução.",
+          text:"Um sistema gera versões candidatas e escolhe a que parece melhor. O simulador compara estratégias de promoção e mostra como medições ruidosas podem fazer um sistema acreditar que melhorou quando só teve sorte.",
+          stack:["JavaScript","Estatística","Experimento interativo"],
+          href:"#/simulador",
+          action:"Abrir simulador"
         },
+        {
+          type:"Engenharia de dados · pipeline diário",
+          title:"Clima, criptomoedas e economia",
+          metric:"3 APIs · atualização diária",
+          detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet e CSV → Power BI",
+          text:"Pipeline ETL que coleta dados de 10 cidades brasileiras, 10 criptomoedas e 15 indicadores do BCB. Trata e valida os dados, gera arquivos Parquet e CSV e oferece um CSV público para conectar ao Power BI.",
+          stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
+          github:"https://github.com/TLCapelo/Dados",
+          demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
+          demoLabel:"Ver CSV de exemplo",
+          status:"Ativo"
+        }
+      ]
+    },
     projects:[
       {type:"Auditoria com IA", title:"Auditoria automática de balancetes", metric:"294 testes automatizados", detail:"com as duas integrações validadas ponta a ponta contra dados reais", text:"Monitora o encerramento do fechamento, extrai as peças contábeis do sistema e gera um relatório técnico com IA, usando uma skill criada para a função de auditoria contábil, para o contador revisar. Antes, o contador tinha que fazer o relatório manualmente, balancete por balancete.", stack:["Python","pywinauto","PostgreSQL","IA"]},
       {type:"Conferência fiscal", title:"Conferência de INSS judicial", metric:"0 divergência em 39.634 valores", detail:"132 competências reconferidas, com o depósito batendo exato contra a fonte", text:"Reconstrói as competências a partir das planilhas originais de cada estabelecimento e marca cada valor que divergia do levantamento anterior. A conferência antiga comparava totais por ano, e os valores trocados entre eventos não apareciam.", stack:["Python","openpyxl","Excel","Testes automatizados"]},
@@ -98,7 +108,7 @@ export const copy = {
     },
     contato:{label:"05 · Próxima conversa", cta:"Vamos construir?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
     entrada:{
-      eyebrow:"Matheus “Maximilian” Capelo",
+      eyebrow:"Sobre",
       h1a:"Construo sistemas.", h1b:"E escrevo sobre o resto.",
       lead:"Analista de dados e desenvolvedor. De um lado, o que eu construo. Do outro, o que eu penso. Escolha por onde começar.",
       portfolioLabel:"O trabalho", portfolioTitulo:"Portfólio",
@@ -107,12 +117,12 @@ export const copy = {
       blogLabel:"As ideias", blogTitulo:"Blog",
       blogTexto:"Onde visões diferentes se encontram. Tecnologia, negócios, cultura, sociedade.",
       blogUltimo:"Mais recente", blogVazio:"Em breve",
-      jogoLabel:"O protótipo", jogoTitulo:"Juramento de 20 Anos",
+      jogoLabel:"04 · Jogos", jogoTitulo:"Juramento de 20 Anos",
       jogoTexto:"Um RPG narrativo que estou construindo. Memória, guerra e escolhas que fecham caminhos.",
       jogoRodape:"Em desenvolvimento · acesso com chave",
-      simLabel:"O estudo", simTitulo:"Simulador",
-      simTexto:"Um sistema que tenta se melhorar sozinho e a armadilha estatística que quase me enganou. Demonstração para mexer.",
-      simRodape:"Interativo · estudo, não produto"
+      estudosLabel:"03 · Projetos de estudo", estudosTitulo:"Simulador e pipeline de dados",
+      estudosTexto:"Experimentos de autodesenvolvimento e engenharia de dados: uma demonstração interativa e um pipeline diário para Power BI.",
+      estudosRodape:"Simulador · Clima, cripto e economia"
     },
     blog:{
       nav:"Blog",
@@ -267,26 +277,36 @@ export const copy = {
       label:"03 · Selected work", h2a:"Impact,", h2b:"not features.",
       nota:"Professional projects described without confidential data. Architecture, technical decisions and generic examples can be walked through in a conversation."
     },
-        estudos:{
-          label:"04 · Studies & Experiments",
-          nav:"Studies",
-          h2a:"Data,", h2b:"pipeline,", h2c:"insights.",
-          nota:"Open-source study projects with automated pipelines and public dashboards. Code, data and documentation available on GitHub.",
-          projects:[
-            {
-              type:"Data Engineering",
-              title:"Daily Pipeline: Weather + Crypto + Economy",
-              metric:"3 APIs · 100% automated",
-              detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet → public CSV → Power BI",
-              text:"Complete ETL pipeline with daily updates via GitHub Actions at 06h BRT. Extracts data from 10 Brazilian cities, 10 cryptocurrencies and 15 BCB indicators. Transforms and validates data, partitions Parquet, and serves CSVs for Power BI Web Connector, including DAX measures and a connection guide.",
-              stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
-              github:"https://github.com/TLCapelo/Dados",
-              demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
-              demoLabel:"Sample CSV",
-              status:"Active"
-            }
-          ]
+    estudos:{
+      label:"03 · Study projects",
+      nav:"Studies",
+      title:"Study projects",
+      intro:"Experiments built for learning: a simulator about continuous improvement and a data pipeline updated daily.",
+      projects:[
+        {
+          type:"Simulator · self-improvement",
+          title:"Self-improving system simulator",
+          metric:"Interactive · a study, not a product",
+          detail:"An experiment in selection, noise and the risk of mistaking luck for progress.",
+          text:"A system generates candidate versions and chooses the one that looks best. The simulator compares promotion strategies and shows how noisy measurements can make a system think it improved when it was only lucky.",
+          stack:["JavaScript","Statistics","Interactive experiment"],
+          href:"#/simulador",
+          action:"Open simulator"
         },
+        {
+          type:"Data engineering · daily pipeline",
+          title:"Weather, crypto and economy",
+          metric:"3 APIs · daily updates",
+          detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet and CSV → Power BI",
+          text:"An ETL pipeline collecting data from 10 Brazilian cities, 10 cryptocurrencies and 15 BCB indicators. It cleans and validates the data, creates Parquet and CSV files, and provides a public CSV to connect to Power BI.",
+          stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
+          github:"https://github.com/TLCapelo/Dados",
+          demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
+          demoLabel:"View sample CSV",
+          status:"Active"
+        }
+      ]
+    },
     projects:[
       {type:"AI-assisted audit", title:"Automated trial balance audit", metric:"294 automated tests", detail:"with both integrations validated end to end against real data", text:"Watches for the monthly close to be signed off, pulls the accounting reports from the system and produces a technical report with AI, using a skill built for accounting audit, for the accountant to review. Before, the accountant had to write that report by hand, one trial balance at a time.", stack:["Python","pywinauto","PostgreSQL","AI"]},
       {type:"Tax reconciliation", title:"Court-ordered social security review", metric:"0 variances across 39,634 values", detail:"132 monthly periods rechecked, with the deposit matching the source exactly", text:"Rebuilds the monthly periods from the original spreadsheets of each establishment and flags every value that diverged from the previous survey. The old check compared yearly totals, so values swapped between line items never showed up.", stack:["Python","openpyxl","Excel","Automated tests"]},
@@ -312,7 +332,7 @@ export const copy = {
     },
     contato:{label:"05 · Next conversation", cta:"Let's build something?", copyright:"© 2026 Matheus “Maximilian” Capelo"},
     entrada:{
-      eyebrow:"Matheus “Maximilian” Capelo",
+      eyebrow:"About",
       h1a:"I build systems.", h1b:"And I write about the rest.",
       lead:"Data analyst and developer. On one side, what I build. On the other, what I think. Pick where to start.",
       portfolioLabel:"The work", portfolioTitulo:"Portfolio",
@@ -321,12 +341,12 @@ export const copy = {
       blogLabel:"The ideas", blogTitulo:"Blog",
       blogTexto:"Where different views meet. Technology, business, culture, society.",
       blogUltimo:"Latest", blogVazio:"Coming soon",
-      jogoLabel:"The prototype", jogoTitulo:"Juramento de 20 Anos",
+      jogoLabel:"04 · Games", jogoTitulo:"Juramento de 20 Anos",
       jogoTexto:"A narrative RPG I am building, in Portuguese. Memory, war and choices that close paths.",
       jogoRodape:"In development · access key required",
-      simLabel:"The study", simTitulo:"Simulator",
-      simTexto:"A system that tries to improve itself, and the statistical trap that almost fooled me. A demo you can play with.",
-      simRodape:"Interactive · a study, not a product"
+      estudosLabel:"03 · Study projects", estudosTitulo:"Simulator and data pipeline",
+      estudosTexto:"Self-improvement experiments and data engineering: an interactive demo and a daily pipeline for Power BI.",
+      estudosRodape:"Simulator · Weather, crypto and economy"
     },
     blog:{
       nav:"Blog",
