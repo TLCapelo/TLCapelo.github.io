@@ -53,6 +53,26 @@ export const copy = {
       label:"03 · Projetos selecionados", h2a:"Impacto,", h2b:"não features.",
       nota:"Projetos profissionais descritos sem dados confidenciais. Arquiteturas, decisões técnicas e exemplos genéricos podem ser apresentados em uma conversa."
     },
+        estudos:{
+          label:"04 · Estudos & Experimentos",
+          nav:"Estudos",
+          h2a:"Dados,", h2b:"pipeline,", h2c:"insights.",
+          nota:"Projetos de estudo com código aberto, pipelines automatizados e dashboards públicos. Código, dados e documentação disponíveis no GitHub.",
+          projects:[
+            {
+              type:"Engenharia de Dados",
+              title:"Pipeline Diário: Clima + Crypto + Economia",
+              metric:"3 APIs · 100% automatizado",
+              detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet → CSV público → Power BI",
+              text:"Pipeline ETL completo com atualização diária via GitHub Actions às 06h BRT. Extrai dados de 10 cidades brasileiras, 10 criptomoedas e 15 indicadores do BCB. Transforma, valida, particiona em Parquet e disponibiliza CSVs para Power BI Web Connector, além de medidas DAX e guia de conexão.",
+              stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
+              github:"https://github.com/TLCapelo/Dados",
+              demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
+              demoLabel:"CSV de exemplo",
+              status:"Ativo"
+            }
+          ]
+        },
     projects:[
       {type:"Auditoria com IA", title:"Auditoria automática de balancetes", metric:"294 testes automatizados", detail:"com as duas integrações validadas ponta a ponta contra dados reais", text:"Monitora o encerramento do fechamento, extrai as peças contábeis do sistema e gera um relatório técnico com IA, usando uma skill criada para a função de auditoria contábil, para o contador revisar. Antes, o contador tinha que fazer o relatório manualmente, balancete por balancete.", stack:["Python","pywinauto","PostgreSQL","IA"]},
       {type:"Conferência fiscal", title:"Conferência de INSS judicial", metric:"0 divergência em 39.634 valores", detail:"132 competências reconferidas, com o depósito batendo exato contra a fonte", text:"Reconstrói as competências a partir das planilhas originais de cada estabelecimento e marca cada valor que divergia do levantamento anterior. A conferência antiga comparava totais por ano, e os valores trocados entre eventos não apareciam.", stack:["Python","openpyxl","Excel","Testes automatizados"]},
@@ -65,7 +85,7 @@ export const copy = {
       {type:"Performance", title:"Power Query otimizado", metric:"100% dos itens preservados", detail:"e o travamento indefinido eliminado, sem mudar a regra de negócio", text:"O diagnóstico foi a parte difícil: a mesma linha era reprocessada em cada coluna, sem materialização intermediária. Calcular uma vez só destravou a consulta e manteve os itens que uma simplificação ingênua descartaria.", stack:["Power Query","Excel","Debug"]}
     ],
     vida:{
-      label:"04 · Fora do terminal",
+          label:"05 · Fora do terminal",
       h2:"Eu gosto de histórias.",
       p:"Mangás, jogos, filmes, séries e literatura clássica. Formatos diferentes para a mesma obsessão: entender pessoas, mundos e escolhas.",
       livroLabel:"Um livro",
@@ -247,6 +267,26 @@ export const copy = {
       label:"03 · Selected work", h2a:"Impact,", h2b:"not features.",
       nota:"Professional projects described without confidential data. Architecture, technical decisions and generic examples can be walked through in a conversation."
     },
+        estudos:{
+          label:"04 · Studies & Experiments",
+          nav:"Studies",
+          h2a:"Data,", h2b:"pipeline,", h2c:"insights.",
+          nota:"Open-source study projects with automated pipelines and public dashboards. Code, data and documentation available on GitHub.",
+          projects:[
+            {
+              type:"Data Engineering",
+              title:"Daily Pipeline: Weather + Crypto + Economy",
+              metric:"3 APIs · 100% automated",
+              detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet → public CSV → Power BI",
+              text:"Complete ETL pipeline with daily updates via GitHub Actions at 06h BRT. Extracts data from 10 Brazilian cities, 10 cryptocurrencies and 15 BCB indicators. Transforms and validates data, partitions Parquet, and serves CSVs for Power BI Web Connector, including DAX measures and a connection guide.",
+              stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
+              github:"https://github.com/TLCapelo/Dados",
+              demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
+              demoLabel:"Sample CSV",
+              status:"Active"
+            }
+          ]
+        },
     projects:[
       {type:"AI-assisted audit", title:"Automated trial balance audit", metric:"294 automated tests", detail:"with both integrations validated end to end against real data", text:"Watches for the monthly close to be signed off, pulls the accounting reports from the system and produces a technical report with AI, using a skill built for accounting audit, for the accountant to review. Before, the accountant had to write that report by hand, one trial balance at a time.", stack:["Python","pywinauto","PostgreSQL","AI"]},
       {type:"Tax reconciliation", title:"Court-ordered social security review", metric:"0 variances across 39,634 values", detail:"132 monthly periods rechecked, with the deposit matching the source exactly", text:"Rebuilds the monthly periods from the original spreadsheets of each establishment and flags every value that diverged from the previous survey. The old check compared yearly totals, so values swapped between line items never showed up.", stack:["Python","openpyxl","Excel","Automated tests"]},
@@ -259,7 +299,7 @@ export const copy = {
       {type:"Performance", title:"Power Query optimization", metric:"100% of items preserved", detail:"and the indefinite hang eliminated, without touching the business rule", text:"The diagnosis was the hard part: the same row was being reprocessed for every column, with no intermediate materialization. Computing it once unblocked the query and kept the items a naive simplification would have thrown away.", stack:["Power Query","Excel","Debug"]}
     ],
     vida:{
-      label:"04 · Off the terminal",
+          label:"05 · Off the terminal",
       h2:"I like stories.",
       p:"Manga, games, films, series and classic literature. Different formats for the same obsession: understanding people, worlds and choices.",
       livroLabel:"One book",
