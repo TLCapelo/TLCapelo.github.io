@@ -17,6 +17,28 @@ const TXT = {
   dash: "Dashboard", dashSub: "Dados reais da última execução do pipeline. Clique para explorar.",
   abas: { cripto: "Cripto", clima: "Clima", economia: "Economia" },
   carregando: "Carregando dados…", erro: "Não foi possível carregar os dados.",
+  linhaVelas: ["Linha", "Velas"], velasAviso: "Velas diárias ao vivo (CoinGecko). Experimento: a API gratuita tem limite de requisições.", velasCarregando: "Buscando velas…", velasErro: "Velas indisponíveis agora (limite da API). Tente de novo em instantes.", velasLegenda: "Cada vela mostra abertura, máxima, mínima e fechamento do dia. Verde: fechou acima da abertura.",
+  mapaTitulo: "Mapa de temperatura", mapaSub: "Temperatura média do dia. Clique numa cidade.", mapaEscala: "°C",
+  grupos: { cambio: "Câmbio", juros: "Juros", inflacao: "Inflação", atividade: "Atividade e emprego", contas: "Contas públicas e externas" },
+  emMes: "no mês", em30: "em 30 dias", em12: "em 12 meses", acum12: "acumulado em 12 meses", alertaNormal: "dentro do padrão", alertaAlerta: "fora do padrão (±2σ)",
+  detalheJanela: { daily: "Últimos 6 meses", monthly: "Últimos 36 meses" }, mediaMovel: "Média de 30 dias", acumulado: "Acumulado 12 meses", mensal: "Variação mensal",
+  atualizadoEm: "Dado de",
+  coletadoEm: "Coletado em", ultimoDado: "Dado mais recente", ate: "a",
+  dividaDif: "Diferença (ativos do governo)", dividaTabela: "Últimos 12 meses", mes: "Mês", bruta: "Bruta", liquida: "Líquida",
+  notas: {
+   dolar_venda: "Cotação de venda do dólar comercial, divulgada pelo Banco Central (PTAX). Quanto maior, mais caro o dólar em reais.",
+   euro_venda: "Cotação de venda do euro em reais, divulgada pelo Banco Central.",
+   reservas: "Dólares e ativos externos guardados pelo Banco Central. Funcionam como colchão contra choques no câmbio.",
+   selic_meta: "Taxa básica de juros definida pelo Copom. Só muda nas reuniões, por isso o gráfico anda em degraus.",
+   cdi_anual: "Taxa dos empréstimos entre bancos, quase igual à Selic. Aqui, a média anualizada de cada mês.",
+   ipca_mensal: "Inflação oficial do mês. As barras são a variação mensal; a linha amarela, o acumulado dos últimos 12 meses (eixo à direita).",
+   ipca_12m: "Inflação oficial acumulada nos últimos 12 meses, a medida usada para comparar com a meta de inflação.",
+   igpm_mensal: "Índice usado em reajustes de aluguel e contratos. As barras são a variação mensal; a linha, o acumulado em 12 meses.",
+   ibc_br: "Índice de atividade econômica do Banco Central, uma prévia mensal do PIB. Base 100 = 2002.",
+   desemprego: "Percentual da força de trabalho sem emprego, segundo a PNAD Contínua do IBGE.",
+   divida_bruta: "Tudo que o governo geral (União, estados e municípios) deve, como proporção do PIB. O gráfico compara com a dívida líquida.",
+   divida_liquida: "Dívida do setor público menos seus ativos (como reservas e créditos), como proporção do PIB. O gráfico compara com a dívida bruta."
+  },
   moeda: "Moeda", preco: "Preço (USD)", sem: "sem histórico no recorte",
   hist: "Histórico de preço (USD)", mercado: "Mercado agora",
   cidade: "Cidade", tmax: "Máx", tmin: "Mín", chuva: "Chuva", umid: "Umidade", uv: "UV máx", vento: "Vento máx",
@@ -56,6 +78,28 @@ const TXT = {
   dash: "Dashboard", dashSub: "Real data from the pipeline's latest run. Click to explore.",
   abas: { cripto: "Crypto", clima: "Weather", economia: "Economy" },
   carregando: "Loading data…", erro: "Could not load the data.",
+  linhaVelas: ["Line", "Candles"], velasAviso: "Live daily candles (CoinGecko). Experiment: the free API has a request limit.", velasCarregando: "Fetching candles…", velasErro: "Candles unavailable right now (API limit). Try again in a moment.", velasLegenda: "Each candle shows the day's open, high, low and close. Green: closed above the open.",
+  mapaTitulo: "Temperature map", mapaSub: "Mean temperature of the day. Click a city.", mapaEscala: "°C",
+  grupos: { cambio: "Exchange rates", juros: "Interest rates", inflacao: "Inflation", atividade: "Activity and jobs", contas: "Public accounts and external" },
+  emMes: "month over month", em30: "in 30 days", em12: "in 12 months", acum12: "accumulated in 12 months", alertaNormal: "within the usual range", alertaAlerta: "outside the usual range (±2σ)",
+  detalheJanela: { daily: "Last 6 months", monthly: "Last 36 months" }, mediaMovel: "30-day average", acumulado: "12-month accumulated", mensal: "Monthly change",
+  atualizadoEm: "Data from",
+  coletadoEm: "Collected on", ultimoDado: "Latest data point", ate: "to",
+  dividaDif: "Difference (government assets)", dividaTabela: "Last 12 months", mes: "Month", bruta: "Gross", liquida: "Net",
+  notas: {
+   dolar_venda: "Selling rate of the commercial dollar, published by the Central Bank (PTAX). The higher it is, the more expensive the dollar is in reais.",
+   euro_venda: "Selling rate of the euro in reais, published by the Central Bank.",
+   reservas: "Dollars and foreign assets held by the Central Bank. They work as a cushion against exchange-rate shocks.",
+   selic_meta: "Benchmark interest rate set by the Copom. It only changes at its meetings, so the chart moves in steps.",
+   cdi_anual: "Rate on loans between banks, nearly equal to Selic. Here, the annualized average of each month.",
+   ipca_mensal: "Official inflation for the month. Bars are the monthly change; the amber line is the 12-month accumulation (right axis).",
+   ipca_12m: "Official inflation accumulated over the last 12 months, the measure compared against the inflation target.",
+   igpm_mensal: "Index used for rent and contract adjustments. Bars are the monthly change; the line is the 12-month accumulation.",
+   ibc_br: "The Central Bank economic activity index, a monthly preview of GDP. Base 100 = 2002.",
+   desemprego: "Share of the labor force without a job, according to IBGE PNAD Contínua.",
+   divida_bruta: "Everything the general government (federal, states and cities) owes, as a share of GDP. The chart compares it with net debt.",
+   divida_liquida: "Public sector debt minus its assets (such as reserves and credits), as a share of GDP. The chart compares it with gross debt."
+  },
   moeda: "Coin", preco: "Price (USD)", sem: "no history in this slice",
   hist: "Price history (USD)", mercado: "Market now",
   cidade: "City", tmax: "Max", tmin: "Min", chuva: "Rain", umid: "Humidity", uv: "Max UV", vento: "Max wind",
@@ -141,13 +185,15 @@ function Linhas({ series, altura = 220, formato }) {
  const X = x => P.l + ((x - x0) / (x1 - x0 || 1)) * (W - P.l - P.r);
  const Y = y => H - P.b - ((y - y0) / (y1 - y0)) * (H - P.t - P.b);
  const ticks = [0, 1, 2, 3].map(i => y0 + ((y1 - y0) * i) / 3);
- const datas = [x0, (x0 + x1) / 2, x1];
+ const longo = (x1 - x0) / 864e5 > 120;
+ const fmtX = d => new Date(d).toLocaleDateString("pt-BR", longo ? { month: "short", year: "2-digit", timeZone: "UTC" } : { day: "2-digit", month: "2-digit", timeZone: "UTC" });
+ const datas = [0, 1, 2, 3, 4].map(i => x0 + ((x1 - x0) * i) / 4);
  return <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img">
   {ticks.map((t, i) => <g key={i}>
    <line x1={P.l} x2={W - P.r} y1={Y(t)} y2={Y(t)} stroke="#ffffff" strokeOpacity=".08"/>
    <text x={P.l - 8} y={Y(t) + 4} textAnchor="end" fontSize="11" fill="#a1a1aa">{formato(t)}</text>
   </g>)}
-  {datas.map((d, i) => <text key={i} x={X(d)} y={H - 6} textAnchor={i === 0 ? "start" : i === 2 ? "end" : "middle"} fontSize="11" fill="#a1a1aa">{new Date(d).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "UTC" })}</text>)}
+  {datas.map((d, i) => <text key={i} x={X(d)} y={H - 6} textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"} fontSize="11" fill="#a1a1aa">{fmtX(d)}</text>)}
   {series.map(s => <polyline key={s.nome} fill="none" stroke={s.cor} strokeWidth={s.fino ? 1.5 : 2.5} strokeDasharray={s.fino ? "5 4" : undefined} strokeLinejoin="round" points={s.pts.map(p => `${X(p.x)},${Y(p.y)}`).join(" ")}/>)}
  </svg>;
 }
@@ -163,9 +209,62 @@ function Seletor({ itens, valor, onChange }) {
 }
 
 // ---------- abas do dashboard ----------
+// ---------- velas (candlestick) ----------
+function Velas({ id, t, loc }) {
+ const [estado, setEstado] = useState("loading");
+ const [velas, setVelas] = useState([]);
+ useEffect(() => {
+  let vivo = true; setEstado("loading");
+  const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000);
+  fetch(`https://api.coingecko.com/api/v3/coins/${id}/ohlc?vs_currency=usd&days=30`, { signal: ctrl.signal })
+   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+   .then(rows => {
+    // a API devolve velas de 4h; agrupa por dia (UTC) para ficarem legíveis
+    const dias = new Map();
+    rows.forEach(([ts, o, h, l, c]) => {
+     const d = new Date(ts).toISOString().slice(0, 10);
+     const v = dias.get(d);
+     if (!v) dias.set(d, { d, o, h, l, c });
+     else { v.h = Math.max(v.h, h); v.l = Math.min(v.l, l); v.c = c; }
+    });
+    if (vivo) { setVelas([...dias.values()]); setEstado("ok"); }
+   })
+   .catch(() => vivo && setEstado("erro"))
+   .finally(() => clearTimeout(to));
+  return () => { vivo = false; clearTimeout(to); ctrl.abort(); };
+ }, [id]);
+
+ if (estado === "loading") return <p className="py-10 text-sm text-zinc-500">{t.velasCarregando}</p>;
+ if (estado === "erro" || velas.length < 2) return <p className="py-10 text-sm text-amber-300">{t.velasErro}</p>;
+ const W = 640, H = 240, P = { l: 56, r: 12, t: 12, b: 26 };
+ const lo = Math.min(...velas.map(v => v.l)), hi = Math.max(...velas.map(v => v.h));
+ const mg = (hi - lo) * 0.06, y0 = lo - mg, y1 = hi + mg;
+ const Y = v => H - P.b - ((v - y0) / (y1 - y0)) * (H - P.t - P.b);
+ const passo = (W - P.l - P.r) / velas.length, larg = Math.max(3, passo * 0.62);
+ const curto = new Intl.NumberFormat(loc, { notation: "compact", maximumFractionDigits: 1 });
+ const ticks = [0, 1, 2, 3].map(i => y0 + ((y1 - y0) * i) / 3);
+ return <div>
+  <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img">
+   {ticks.map((tk, i) => <g key={i}><line x1={P.l} x2={W - P.r} y1={Y(tk)} y2={Y(tk)} stroke="#fff" strokeOpacity=".08"/><text x={P.l - 8} y={Y(tk) + 4} textAnchor="end" fontSize="11" fill="#a1a1aa">{curto.format(tk)}</text></g>)}
+   {velas.map((v, i) => {
+    const x = P.l + passo * i + passo / 2, alta = v.c >= v.o, cor = alta ? "#bef264" : "#fb7185";
+    return <g key={v.d}>
+     <line x1={x} x2={x} y1={Y(v.h)} y2={Y(v.l)} stroke={cor} strokeWidth="1.5"/>
+     <rect x={x - larg / 2} y={Math.min(Y(v.o), Y(v.c))} width={larg} height={Math.max(1.5, Math.abs(Y(v.o) - Y(v.c)))} fill={cor} rx="1"/>
+     <title>{`${v.d}\nO ${v.o.toFixed(2)}  H ${v.h.toFixed(2)}\nL ${v.l.toFixed(2)}  C ${v.c.toFixed(2)}`}</title>
+    </g>;
+   })}
+   {[0, Math.floor(velas.length / 2), velas.length - 1].map((i, k) => <text key={i} x={P.l + passo * i + passo / 2} y={H - 6} textAnchor={k === 0 ? "start" : k === 2 ? "end" : "middle"} fontSize="11" fill="#a1a1aa">{new Date(velas[i].d).toLocaleDateString(loc, { day: "2-digit", month: "2-digit", timeZone: "UTC" })}</text>)}
+  </svg>
+  <p className="mt-2 text-xs text-zinc-500">{t.velasLegenda}</p>
+ </div>;
+}
+
+// ---------- cripto ----------
 function Cripto({ d, t, loc }) {
  const moedas = useMemo(() => d.mercado.filter(r => r.vs_currency === "usd" && r.usd_current_price !== "").sort((a, b) => num(a.market_cap_rank) - num(b.market_cap_rank)), [d]);
  const [id, setId] = useState(() => moedas.find(m => m.coin_id === "bitcoin")?.coin_id || moedas[0]?.coin_id);
+ const [modo, setModo] = useState("linha");
  const pts = d.historico.filter(r => r.coin_id === id).map(r => ({ x: Date.parse(r.date), y: num(r.price_usd) })).sort((a, b) => a.x - b.x);
  const usd = new Intl.NumberFormat(loc, { style: "currency", currency: "USD", maximumFractionDigits: 2 });
  const curto = new Intl.NumberFormat(loc, { notation: "compact", maximumFractionDigits: 1 });
@@ -186,13 +285,49 @@ function Cripto({ d, t, loc }) {
    </div>
   </Cartao>
   <Cartao>
-   <Rotulo>{t.hist}</Rotulo>
-   <p className="mt-3 text-3xl font-black tracking-tight">{moedas.find(m => m.coin_id === id)?.name}</p>
-   <div className="mt-4">{pts.length > 1 ? <Linhas series={[{ nome: id, cor: "#bef264", pts }]} formato={v => curto.format(v)}/> : <p className="py-10 text-sm text-zinc-500">{t.sem}</p>}</div>
+   <div className="flex items-start justify-between gap-3">
+    <div><Rotulo>{modo === "linha" ? t.hist : "OHLC · 30d"}</Rotulo><p className="mt-3 text-3xl font-black tracking-tight">{moedas.find(m => m.coin_id === id)?.name}</p></div>
+    <div className="flex shrink-0 gap-1 rounded-full border border-white/15 p-1 text-xs">{["linha", "velas"].map((m, i) => <button key={m} onClick={() => setModo(m)} className={`rounded-full px-3 py-1 transition ${modo === m ? "bg-lime-300 font-bold text-black" : "text-zinc-300 hover:text-white"}`}>{t.linhaVelas[i]}</button>)}</div>
+   </div>
+   <div className="mt-4">{modo === "velas"
+    ? <Velas id={id} t={t} loc={loc}/>
+    : pts.length > 1 ? <Linhas series={[{ nome: id, cor: "#bef264", pts }]} formato={v => curto.format(v)}/> : <p className="py-10 text-sm text-zinc-500">{t.sem}</p>}</div>
   </Cartao>
  </div>;
 }
 
+// ---------- mapa do Brasil ----------
+function MapaBrasil({ cidades, selecionada, onSelect, t, loc }) {
+ const [anel, setAnel] = useState([]);
+ useEffect(() => { fetch(DADOS + "brasil-uf.json").then(r => r.json()).then(setAnel).catch(() => {}); }, []);
+ const W = 420, H = 440, LON = [-74, -34], LAT = [-34, 5.5];
+ // projecao equiretangular com correcao pela latitude media
+ const k = Math.cos((-14 * Math.PI) / 180);
+ const sx = (W - 16) / ((LON[1] - LON[0]) * k), sy = (H - 16) / (LAT[1] - LAT[0]), s = Math.min(sx, sy);
+ const X = lon => 8 + (lon - LON[0]) * k * s, Y = lat => 8 + (LAT[1] - lat) * s;
+ const caminhos = useMemo(() => anel.map(r => "M" + r.map(([lo, la]) => `${X(lo).toFixed(1)},${Y(la).toFixed(1)}`).join("L") + "Z"), [anel]);
+ const vs = cidades.map(c => c.v), mn = Math.min(...vs), mx = Math.max(...vs);
+ // escala sequencial azul -> amarelo -> vermelho
+ const cor = v => { const f = (v - mn) / (mx - mn || 1); const h = 210 - f * 210; return `hsl(${h} 85% ${52 + (f > .5 ? -4 : 0)}%)`; };
+ return <div>
+  <svg viewBox={`0 0 ${W} ${H}`} className="mx-auto w-full max-w-[420px]" role="img">
+   {caminhos.map((d, i) => <path key={i} d={d} fill="#ffffff" fillOpacity=".05" stroke="#ffffff" strokeOpacity=".22" strokeWidth=".8"/>)}
+   {cidades.map(c => <g key={c.city} onClick={() => onSelect(c.city)} className="cursor-pointer">
+    <circle cx={X(c.lon)} cy={Y(c.lat)} r={c.city === selecionada ? 13 : 10} fill={cor(c.v)} stroke={c.city === selecionada ? "#fff" : "#000"} strokeOpacity={c.city === selecionada ? 1 : .5} strokeWidth="2"/>
+    <text x={X(c.lon)} y={Y(c.lat) + 3.5} textAnchor="middle" fontSize="9" fontWeight="700" fill="#101010" pointerEvents="none">{Math.round(c.v)}</text>
+    {c.city === selecionada && <text x={X(c.lon)} y={Y(c.lat) - 18} textAnchor="middle" fontSize="11" fontWeight="700" fill="#bef264" pointerEvents="none">{c.city}</text>}
+    <title>{`${c.city}: ${c.v.toFixed(1)}°C`}</title>
+   </g>)}
+  </svg>
+  <div className="mx-auto mt-3 flex max-w-[420px] items-center gap-3 text-xs text-zinc-400">
+   <span className="tabular-nums">{mn.toFixed(0)}{t.mapaEscala}</span>
+   <span className="h-2 flex-1 rounded-full" style={{ background: "linear-gradient(90deg,hsl(210 85% 52%),hsl(150 85% 52%),hsl(60 85% 52%),hsl(0 85% 48%))" }}/>
+   <span className="tabular-nums">{mx.toFixed(0)}{t.mapaEscala}</span>
+  </div>
+ </div>;
+}
+
+// ---------- clima ----------
 function Clima({ d, t, loc }) {
  const cidades = useMemo(() => [...new Set(d.clima.map(r => r.city))], [d]);
  const [cidade, setCidade] = useState(cidades[0]);
@@ -200,64 +335,170 @@ function Clima({ d, t, loc }) {
  const ultimo = dias[dias.length - 1];
  const linhas = d.clima.filter(r => r.city === cidade).sort((a, b) => a.date.localeCompare(b.date));
  const hoje = linhas[linhas.length - 1];
- const ranking = d.clima.filter(r => r.date === ultimo).map(r => ({ city: r.city, v: num(r.temperature_2m_mean) })).sort((a, b) => b.v - a.v);
- const max = Math.max(...ranking.map(r => r.v), 1);
+ const pontos = d.clima.filter(r => r.date === ultimo).map(r => ({ city: r.city, lat: num(r.latitude), lon: num(r.longitude), v: num(r.temperature_2m_mean) }));
  const f = (v, u, dig = 0) => v == null ? "—" : `${v.toLocaleString(loc, { maximumFractionDigits: dig })}${u}`;
  return <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
   <Cartao>
+   <Rotulo>{t.mapaTitulo}</Rotulo>
+   <p className="mt-2 mb-4 text-sm text-zinc-400">{t.mapaSub}</p>
+   <MapaBrasil cidades={pontos} selecionada={cidade} onSelect={setCidade} t={t} loc={loc}/>
+  </Cartao>
+  <Cartao>
    <Rotulo>{t.cidade}</Rotulo>
-   <div className="mt-4"><Seletor itens={cidades.map(c => ({ id: c, nome: c }))} valor={cidade} onChange={setCidade}/></div>
-   {hoje && <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+   <p className="mt-3 text-3xl font-black tracking-tight">{cidade}</p>
+   {hoje && <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
     {[[t.tmax, f(num(hoje.temperature_2m_max), "°C", 1)], [t.tmin, f(num(hoje.temperature_2m_min), "°C", 1)], [t.chuva, f(num(hoje.precipitation_sum), " mm", 1)], [t.umid, f(num(hoje.relative_humidity_2m_mean), "%")], [t.uv, f(num(hoje.uv_index_max), "", 1)], [t.vento, f(num(hoje.windspeed_10m_max), " km/h", 1)]].map(([k, v]) => <div key={k} className="rounded-2xl bg-white/[.05] p-4"><p className="text-xs uppercase tracking-wider text-zinc-500">{k}</p><p className="mt-1 text-2xl font-black tabular-nums">{v}</p></div>)}
    </div>}
    <p className="mt-4 text-xs text-zinc-500">{t.dia}: {hoje && new Date(hoje.date).toLocaleDateString(loc, { timeZone: "UTC" })} · {hoje?.temp_category} · {hoje?.precip_category}</p>
-  </Cartao>
-  <Cartao>
-   <Rotulo>{t.comparativo}</Rotulo>
-   <ul className="mt-5 space-y-2.5">
-    {ranking.map(r => <li key={r.city} onClick={() => setCidade(r.city)} className="grid cursor-pointer grid-cols-[110px_1fr_52px] items-center gap-3 text-sm">
-     <span className={r.city === cidade ? "font-bold text-lime-300" : "text-zinc-300"}>{r.city}</span>
-     <span className="h-2.5 rounded-full bg-white/10"><span className="block h-full rounded-full bg-lime-300" style={{ width: `${(r.v / max) * 100}%` }}/></span>
-     <span className="text-right tabular-nums">{f(r.v, "°", 1)}</span>
-    </li>)}
-   </ul>
+   <div className="mt-6">
+    <Seletor itens={cidades.map(c => ({ id: c, nome: c }))} valor={cidade} onChange={setCidade}/>
+   </div>
   </Cartao>
  </div>;
 }
 
+// ---------- economia: cada indicador com a formula do seu tipo ----------
+const GRUPOS = [
+ ["cambio", ["dolar_venda", "euro_venda"]],
+ ["juros", ["selic_meta", "cdi_anual"]],
+ ["inflacao", ["ipca_mensal", "ipca_12m", "igpm_mensal"]],
+ ["atividade", ["ibc_br", "desemprego"]],
+ ["contas", ["divida_bruta", "divida_liquida", "reservas"]]
+];
+
+function fmtValor(v, s, loc) {
+ if (v == null) return "—";
+ const dec = s.decimals;
+ const n = new Intl.NumberFormat(loc, { minimumFractionDigits: dec, maximumFractionDigits: dec });
+ if (s.unidade === "R$") return `R$ ${n.format(v)}`;
+ if (s.unidade.startsWith("US$")) return `US$ ${new Intl.NumberFormat(loc, { maximumFractionDigits: 1 }).format(v / 1000)} bi`;
+ if (s.unidade.startsWith("%")) return `${n.format(v)}%`;
+ return n.format(v);
+}
+function fmtDelta(v, unid, loc) {
+ if (v == null) return null;
+ const n = new Intl.NumberFormat(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2, signDisplay: "exceptZero" });
+ return unid === "%" ? `${n.format(v)}%` : `${n.format(v)} p.p.`;
+}
+const seta = v => v == null || Math.abs(v) < 1e-9 ? "→" : v > 0 ? "▲" : "▼";
+
+function Mini({ pts, cor = "#bef264", w = 120, h = 34 }) {
+ if (pts.length < 2) return null;
+ const ys = pts.map(p => p.y), lo = Math.min(...ys), hi = Math.max(...ys), r = hi - lo || 1;
+ const X = i => (i / (pts.length - 1)) * w, Y = y => h - 3 - ((y - lo) / r) * (h - 6);
+ return <svg viewBox={`0 0 ${w} ${h}`} className="h-8 w-28" aria-hidden="true"><polyline fill="none" stroke={cor} strokeWidth="2" strokeLinejoin="round" points={pts.map((p, i) => `${X(i)},${Y(p.y)}`).join(" ")}/></svg>;
+}
+
+function Barras({ barras, linha, formato }) {
+ const W = 640, H = 230, P = { l: 48, r: linha.length ? 48 : 12, t: 12, b: 26 };
+ const vs = barras.map(b => b.y);
+ const lo = Math.min(0, ...vs), hi = Math.max(0, ...vs), mg = (hi - lo) * 0.08;
+ const y0 = lo - (lo < 0 ? mg : 0), y1 = hi + mg;
+ const Y = v => H - P.b - ((v - y0) / (y1 - y0)) * (H - P.t - P.b);
+ // a linha (acumulado em 12 meses) tem ordem de grandeza diferente: eixo proprio, a direita
+ const lv = linha.map(l => l.y), l0 = Math.min(...lv, 0), l1 = Math.max(...lv, 0.01), lm = (l1 - l0) * 0.08;
+ const YL = v => H - P.b - ((v - (l0 - lm)) / ((l1 + lm) - (l0 - lm))) * (H - P.t - P.b);
+ const passo = (W - P.l - P.r) / barras.length, larg = Math.max(2, passo * 0.64);
+ const ticks = [0, 1, 2, 3].map(i => y0 + ((y1 - y0) * i) / 3);
+ const cx = i => P.l + passo * i + passo / 2;
+ const idx = new Map(barras.map((b, i) => [b.x, i]));
+ const pl = linha.filter(l => idx.has(l.x)).map(l => `${cx(idx.get(l.x))},${YL(l.y)}`).join(" ");
+ return <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img">
+  {ticks.map((tk, i) => <g key={i}><line x1={P.l} x2={W - P.r} y1={Y(tk)} y2={Y(tk)} stroke="#fff" strokeOpacity=".08"/><text x={P.l - 8} y={Y(tk) + 4} textAnchor="end" fontSize="11" fill="#a1a1aa">{formato(tk)}</text></g>)}
+  <line x1={P.l} x2={W - P.r} y1={Y(0)} y2={Y(0)} stroke="#fff" strokeOpacity=".3"/>
+  {barras.map((b, i) => <rect key={b.x} x={cx(i) - larg / 2} y={Math.min(Y(0), Y(b.y))} width={larg} height={Math.max(1, Math.abs(Y(b.y) - Y(0)))} fill={b.y >= 0 ? "#bef264" : "#fb7185"} rx="1.5"><title>{`${new Date(b.x).toLocaleDateString("pt-BR", { month: "short", year: "numeric", timeZone: "UTC" })}: ${formato(b.y)}`}</title></rect>)}
+  {pl && <polyline fill="none" stroke="#fbbf24" strokeWidth="2.2" strokeLinejoin="round" points={pl}/>}
+  {pl && [0, 1, 2, 3].map(i => { const v = l0 - lm + (((l1 + lm) - (l0 - lm)) * i) / 3; return <text key={i} x={W - P.r + 8} y={YL(v) + 4} fontSize="11" fill="#fbbf24">{formato(v)}</text>; })}
+  {[0, Math.floor(barras.length / 2), barras.length - 1].map((i, k) => <text key={i} x={cx(i)} y={H - 6} textAnchor={k === 0 ? "start" : k === 2 ? "end" : "middle"} fontSize="11" fill="#a1a1aa">{new Date(barras[i].x).toLocaleDateString("pt-BR", { month: "short", year: "2-digit", timeZone: "UTC" })}</text>)}
+ </svg>;
+}
+
+function Degrau({ pts, formato }) {
+ // taxa que muda por decisao (Selic): mantem o valor ate a proxima mudanca
+ const dg = []; pts.forEach((p, i) => { if (i) dg.push({ x: p.x, y: pts[i - 1].y }); dg.push(p); });
+ return <Linhas series={[{ nome: "degrau", cor: "#bef264", pts: dg }]} formato={formato}/>;
+}
+
+function Detalhe({ s, loc, t, coleta, series }) {
+ const nfAx = new Intl.NumberFormat(loc, { maximumFractionDigits: s.decimals > 2 ? 2 : s.decimals });
+ const diario = s.frequencia === "daily";
+ const todas = s.linhas;
+ const corte = diario ? Date.parse(todas[todas.length - 1].date) - 183 * 864e5 : null;
+ const janela = diario ? todas.filter(r => Date.parse(r.date) >= corte) : todas.slice(-36);
+ const ult = todas[todas.length - 1];
+ const pts = janela.map(r => ({ x: Date.parse(r.date), y: num(r.value) })).filter(p => p.y != null);
+ const fmtData = (iso, dia) => new Date(iso).toLocaleDateString(loc, dia ? { timeZone: "UTC" } : { month: "long", year: "numeric", timeZone: "UTC" });
+ const periodo = `${fmtData(janela[0].date, diario)} ${t.ate} ${fmtData(janela[janela.length - 1].date, diario)}`;
+ let grafico, legenda, tabela;
+ if (s.kind === "monthly_rate") {
+  const ac = janela.filter(r => num(r.acc_12m) != null).map(r => ({ x: Date.parse(r.date), y: num(r.acc_12m) }));
+  grafico = <Barras barras={pts} linha={ac} formato={v => nfAx.format(v) + "%"}/>;
+  legenda = [["#bef264", t.mensal], ["#fbbf24", t.acumulado]];
+ } else if (s.kind === "rate" && s.id === "selic_meta") {
+  grafico = <Degrau pts={pts} formato={v => nfAx.format(v) + "%"}/>;
+ } else if (s.kind === "price" || s.kind === "stock") {
+  const ma = janela.filter(r => num(r.ma_30d) != null).map(r => ({ x: Date.parse(r.date), y: num(r.ma_30d) }));
+  grafico = <Linhas series={[{ nome: "v", cor: "#bef264", pts }, { nome: "ma", cor: "#fbbf24", pts: ma, fino: true }]} formato={v => s.unidade.startsWith("US$") ? new Intl.NumberFormat(loc, { notation: "compact" }).format(v) : nfAx.format(v)}/>;
+  legenda = [["#bef264", s.nome], ["#fbbf24", t.mediaMovel]];
+ } else if (s.id === "divida_bruta" || s.id === "divida_liquida") {
+  const br = series.get("divida_bruta"), li = series.get("divida_liquida");
+  const jn = l => l.slice(-36).map(r => ({ x: Date.parse(r.date), y: num(r.value) }));
+  grafico = <Linhas series={[{ nome: "b", cor: "#bef264", pts: jn(br.linhas) }, { nome: "l", cor: "#fbbf24", pts: jn(li.linhas) }]} formato={v => nfAx.format(v) + "%"}/>;
+  legenda = [["#bef264", t.bruta], ["#fbbf24", t.liquida]];
+  const mapaL = new Map(li.linhas.map(r => [r.date, num(r.value)]));
+  tabela = br.linhas.slice(-12).reverse().map(r => ({ mes: fmtData(r.date, false), b: num(r.value), l: mapaL.get(r.date) }));
+ } else {
+  grafico = <Linhas series={[{ nome: "v", cor: "#bef264", pts }]} formato={v => nfAx.format(v) + (s.unidade.startsWith("%") ? "%" : "")}/>;
+ }
+ return <Cartao className="mt-5">
+  <div className="flex flex-wrap items-baseline justify-between gap-2">
+   <div><Rotulo>{diario ? t.detalheJanela.daily : t.detalheJanela.monthly} · {periodo}</Rotulo><p className="mt-2 text-2xl font-black tracking-tight">{s.nome}</p></div>
+   {ult.alert && <span className={`rounded-full px-3 py-1 text-xs ${ult.alert === "Alerta" ? "bg-amber-300 font-bold text-black" : "border border-white/15 text-zinc-400"}`}>{ult.alert === "Alerta" ? t.alertaAlerta : t.alertaNormal}</span>}
+  </div>
+  <p className="mt-2 text-xs text-zinc-500">{t.ultimoDado}: {fmtData(ult.date, diario)} · {t.coletadoEm} {coleta}</p>
+  {t.notas[s.id] && <p className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-400">{t.notas[s.id]}</p>}
+  <div className="mt-4">{grafico}</div>
+  {tabela && <div className="mt-5 overflow-x-auto"><p className="mb-2 text-xs uppercase tracking-wider text-zinc-500">{t.dividaTabela} (% PIB)</p>
+   <table className="w-full min-w-[420px] text-left text-sm"><thead className="text-xs text-zinc-500"><tr><th className="pb-2 font-normal">{t.mes}</th><th className="pb-2 text-right font-normal">{t.bruta}</th><th className="pb-2 text-right font-normal">{t.liquida}</th><th className="pb-2 text-right font-normal">{t.dividaDif}</th></tr></thead>
+   <tbody>{tabela.map(r => <tr key={r.mes} className="border-t border-white/10"><td className="py-2 first-letter:uppercase">{r.mes}</td><td className="py-2 text-right tabular-nums">{r.b?.toFixed(1)}%</td><td className="py-2 text-right tabular-nums">{r.l?.toFixed(1)}%</td><td className="py-2 text-right tabular-nums text-zinc-400">{r.b != null && r.l != null ? (r.b - r.l).toFixed(1) + " p.p." : "—"}</td></tr>)}</tbody></table></div>}
+  {legenda && <p className="mt-1 flex flex-wrap gap-x-5 gap-y-1 text-xs text-zinc-500">{legenda.map(([c, l]) => <span key={l}><i className="mr-1 inline-block h-0.5 w-4 align-middle" style={{ background: c }}/>{l}</span>)}</p>}
+ </Cartao>;
+}
+
 function Economia({ d, t, loc }) {
+ const coleta = d.meta?.generated_at ? new Date(d.meta.generated_at + "Z").toLocaleString(loc, { dateStyle: "short", timeStyle: "short" }) : "—";
  const series = useMemo(() => {
   const m = new Map();
-  d.economia.forEach(r => { if (!m.has(r.series_name)) m.set(r.series_name, { id: r.series_name, nome: r.series_description || r.series_name, unidade: r.unit, linhas: [] }); m.get(r.series_name).linhas.push(r); });
-  return [...m.values()];
+  d.economia.forEach(r => {
+   if (!m.has(r.series_name)) m.set(r.series_name, { id: r.series_name, nome: r.series_description || r.series_name, unidade: r.unit, kind: r.kind, frequencia: r.frequency, decimals: Number(r.decimals || 2), linhas: [] });
+   m.get(r.series_name).linhas.push(r);
+  });
+  m.forEach(s => s.linhas.sort((a, b) => a.date.localeCompare(b.date)));
+  return m;
  }, [d]);
- const [id, setId] = useState(() => (series.find(s => s.id === "selic") || series[0])?.id);
- const s = series.find(x => x.id === id);
- const linhas = s ? s.linhas.slice().sort((a, b) => a.date.localeCompare(b.date)) : [];
- const ult = linhas[linhas.length - 1];
- const nf = new Intl.NumberFormat(loc, { maximumFractionDigits: 4 });
- const ptsV = linhas.filter(r => num(r.value) != null).map(r => ({ x: Date.parse(r.date), y: num(r.value) }));
- const faixa = ptsV.length ? Math.max(...ptsV.map(p => p.y)) - Math.min(...ptsV.map(p => p.y)) : 1;
- const nfAx = new Intl.NumberFormat(loc, { maximumFractionDigits: faixa < 0.01 ? 5 : faixa < 1 ? 4 : faixa < 20 ? 2 : 0 });
- const ptsM = linhas.filter(r => num(r.ma_7d) != null).map(r => ({ x: Date.parse(r.date), y: num(r.ma_7d) }));
- return <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
-  <Cartao>
-   <Rotulo>{t.indicador}</Rotulo>
-   <div className="mt-4 max-h-[300px] overflow-y-auto pr-1"><Seletor itens={series.map(x => ({ id: x.id, nome: x.nome }))} valor={id} onChange={setId}/></div>
-  </Cartao>
-  <Cartao>
-   {ult && <>
-    <p className="text-sm text-zinc-400">{s.nome}</p>
-    <p className="mt-1 text-4xl font-black tracking-tight tabular-nums">{nf.format(num(ult.value))} {!/percentual|_/.test(s.unidade || "") && <span className="text-lg font-normal text-zinc-500">{s.unidade}</span>}</p>
-    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-zinc-400">
-     <span>{t.var30}: <Pct v={num(ult.pct_change_30d)}/></span>
-     <span>{t.media7}: {num(ult.ma_7d) == null ? "—" : nf.format(num(ult.ma_7d))}</span>
-     <span>{t.alerta}: <b className={ult.alert === "Normal" ? "text-zinc-200" : "text-amber-300"}>{ult.alert || "—"}</b></span>
+ const [id, setId] = useState("dolar_venda");
+ const sel = series.get(id) || [...series.values()][0];
+ return <div>
+  {GRUPOS.map(([g, ids]) => { const lista = ids.map(i => series.get(i)).filter(Boolean); if (!lista.length) return null;
+   return <div key={g} className="mb-7">
+    <Rotulo>{t.grupos[g]}</Rotulo>
+    <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+     {lista.map(s => { const u = s.linhas[s.linhas.length - 1]; const mensal = s.frequencia === "monthly";
+      const d30 = num(u.delta_30d), d12 = num(u.delta_12m), ac = num(u.acc_12m);
+      const spark = s.linhas.slice(mensal ? -24 : -60).map(r => ({ y: num(r.value) })).filter(p => p.y != null);
+      return <button key={s.id} onClick={() => setId(s.id)} className={`rounded-[1.25rem] border p-4 text-left transition ${s.id === sel.id ? "border-lime-300 bg-lime-300/[.07]" : "border-white/10 bg-white/[.03] hover:border-white/30"}`}>
+       <p className="text-xs text-zinc-400">{s.nome}</p>
+       <div className="mt-1 flex items-end justify-between gap-2"><p className="text-2xl font-black tracking-tight tabular-nums">{fmtValor(num(u.value), s, loc)}</p><Mini pts={spark}/></div>
+       <div className="mt-2 space-y-0.5 text-xs text-zinc-400">
+        {d30 != null && <p><span className="mr-1 text-zinc-300">{seta(d30)}</span>{fmtDelta(d30, u.delta_unit, loc)} {mensal ? t.emMes : t.em30}</p>}
+        {d12 != null && <p><span className="mr-1 text-zinc-300">{seta(d12)}</span>{fmtDelta(d12, u.delta_unit, loc)} {t.em12}</p>}
+        {ac != null && <p>{fmtValor(ac, { decimals: 2, unidade: "%" }, loc)} {t.acum12}</p>}
+       </div>
+       <p className="mt-2 text-[11px] text-zinc-600">{t.atualizadoEm} {new Date(u.date).toLocaleDateString(loc, mensal ? { month: "short", year: "numeric", timeZone: "UTC" } : { timeZone: "UTC" })}</p>
+      </button>; })}
     </div>
-    <div className="mt-4"><Linhas series={[{ nome: "valor", cor: "#bef264", pts: ptsV }, { nome: "ma7", cor: "#fbbf24", pts: ptsM, fino: true }]} formato={v => nfAx.format(v)}/></div>
-    <p className="mt-1 flex gap-4 text-xs text-zinc-500"><span><i className="mr-1 inline-block h-0.5 w-4 bg-lime-300 align-middle"/>{t.valor}</span><span><i className="mr-1 inline-block h-0.5 w-4 bg-amber-400 align-middle"/>{t.media7}</span></p>
-   </>}
-  </Cartao>
+   </div>; })}
+  {sel && <Detalhe s={sel} loc={loc} t={t} series={series} coleta={coleta}/>}
  </div>;
 }
 
@@ -343,7 +584,7 @@ export default function Pipeline({ lang, setLang }) {
     <h1 className="mt-5 max-w-4xl text-5xl font-black leading-[.92] tracking-[-.05em] md:text-8xl">{t.titulo}</h1>
     <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-400 md:text-xl">{t.lead}</p>
     <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-zinc-400">
-     {[["10", t.cidades], ["10", t.moedas], ["15", t.series], ["3", t.apis]].map(([n, k]) => <span key={k}><b className="text-2xl font-black text-white">{n}</b> {k}</span>)}
+     {[["10", t.cidades], ["10", t.moedas], ["12", t.series], ["3", t.apis]].map(([n, k]) => <span key={k}><b className="text-2xl font-black text-white">{n}</b> {k}</span>)}
     </div>
     <p className="mt-4 text-xs text-zinc-500">{t.atualizado}: {quando}</p>
    </div>
