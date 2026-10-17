@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Meia hora depois de cada rodada do pipeline de dados (a cada 3 horas)
+    - cron: '30 */3 * * *'
 
 permissions:
   contents: read
@@ -26,6 +29,16 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Atualiza os dados do dashboard com a última execução do pipeline.
+      # Se falhar, o build segue com o snapshot que já está em public/dados.
+      - name: Atualizar dados do pipeline
+        run: |
+          for f in crypto_market.csv crypto_historico.csv clima_diario.csv economia_diario.csv metadata.json; do
+            curl -fsSL "https://raw.githubusercontent.com/${{ github.repository_owner }}/Dados/main/data/serving/powerbi/$f" -o "public/dados/$f.tmp" \
+              && mv "public/dados/$f.tmp" "public/dados/$f" \
+              || echo "Mantendo snapshot de $f"
+          done
       - run: npm run build
 
       - uses: actions/configure-pages@v5

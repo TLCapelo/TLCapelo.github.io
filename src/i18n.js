@@ -57,7 +57,7 @@ export const copy = {
       label:"03 · Projetos de estudo",
       nav:"Estudos",
       title:"Projetos de estudo",
-      intro:"Experimentos para aprender construindo: um simulador sobre melhoria contínua e um pipeline de dados atualizado diariamente.",
+      intro:"Experimentos para aprender construindo: um simulador sobre melhoria contínua e um pipeline de dados que se atualiza a cada 3 horas.",
       projects:[
         {
           type:"Simulador · autodesenvolvimento",
@@ -70,15 +70,14 @@ export const copy = {
           action:"Abrir simulador"
         },
         {
-          type:"Engenharia de dados · pipeline diário",
+          type:"Engenharia de dados · pipeline automático",
           title:"Clima, criptomoedas e economia",
-          metric:"3 APIs · atualização diária",
+          metric:"3 APIs · atualiza a cada 3 horas",
           detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet e CSV → Power BI",
           text:"Pipeline ETL que coleta dados de 10 cidades brasileiras, 10 criptomoedas e 15 indicadores do BCB. Trata e valida os dados, gera arquivos Parquet e CSV e oferece um CSV público para conectar ao Power BI.",
           stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
-          github:"https://github.com/TLCapelo/Dados",
-          demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
-          demoLabel:"Ver CSV de exemplo",
+          href:"#/pipeline",
+          action:"Abrir dashboard",
           status:"Ativo"
         }
       ]
@@ -111,18 +110,18 @@ export const copy = {
       eyebrow:"Sobre",
       h1a:"Construo sistemas.", h1b:"E escrevo sobre o resto.",
       lead:"Analista de dados e desenvolvedor. De um lado, o que eu construo. Do outro, o que eu penso. Escolha por onde começar.",
-      portfolioLabel:"O trabalho", portfolioTitulo:"Portfólio",
+      portfolioLabel:"01 · O trabalho", portfolioTitulo:"Portfólio",
       portfolioTexto:"Automações, BI e integrações que substituíram rotinas manuais inteiras. Com número medido, não com estimativa.",
       portfolioRodape:"Projetos, trajetória e contato",
-      blogLabel:"As ideias", blogTitulo:"Blog",
+      blogLabel:"02 · Reflexões", blogTitulo:"Blog",
       blogTexto:"Onde visões diferentes se encontram. Tecnologia, negócios, cultura, sociedade.",
       blogUltimo:"Mais recente", blogVazio:"Em breve",
-      jogoLabel:"04 · Jogos", jogoTitulo:"Juramento de 20 Anos",
-      jogoTexto:"Um RPG narrativo que estou construindo. Memória, guerra e escolhas que fecham caminhos.",
-      jogoRodape:"Em desenvolvimento · acesso com chave",
-      estudosLabel:"03 · Projetos de estudo", estudosTitulo:"Simulador e pipeline de dados",
-      estudosTexto:"Experimentos de autodesenvolvimento e engenharia de dados: uma demonstração interativa e um pipeline diário para Power BI.",
-      estudosRodape:"Simulador · Clima, cripto e economia"
+      jogoLabel:"04 · A diversão", jogoTitulo:"Jogos",
+      jogoTexto:"Alguns jogos que estou desenvolvendo, como o RPG narrativo Juramento de 20 Anos. Quando eu concluir, libero o acesso.",
+      jogoRodape:"Em desenvolvimento · acesso trancado",
+      estudosLabel:"03 · Projetos secundários", estudosTitulo:"Estudos",
+      estudosTexto:"Experimentos e projetos paralelos onde eu aprendo construindo: simuladores, pipelines de dados, widgets e o que mais vier por aí.",
+      estudosRodape:"Simulador · Pipeline de dados · Widget"
     },
     blog:{
       nav:"Blog",
@@ -281,7 +280,7 @@ export const copy = {
       label:"03 · Study projects",
       nav:"Studies",
       title:"Study projects",
-      intro:"Experiments built for learning: a simulator about continuous improvement and a data pipeline updated daily.",
+      intro:"Experiments built for learning: a simulator about continuous improvement and a data pipeline that updates every 3 hours.",
       projects:[
         {
           type:"Simulator · self-improvement",
@@ -294,15 +293,14 @@ export const copy = {
           action:"Open simulator"
         },
         {
-          type:"Data engineering · daily pipeline",
+          type:"Data engineering · automated pipeline",
           title:"Weather, crypto and economy",
-          metric:"3 APIs · daily updates",
+          metric:"3 APIs · updates every 3 hours",
           detail:"Open-Meteo + CoinGecko + BCB/SGS → Parquet and CSV → Power BI",
           text:"An ETL pipeline collecting data from 10 Brazilian cities, 10 cryptocurrencies and 15 BCB indicators. It cleans and validates the data, creates Parquet and CSV files, and provides a public CSV to connect to Power BI.",
           stack:["Python","pandas","PyArrow","GitHub Actions","Power BI","Parquet"],
-          github:"https://github.com/TLCapelo/Dados",
-          demo:"https://raw.githubusercontent.com/TLCapelo/Dados/gh-pages/powerbi/crypto_market.csv",
-          demoLabel:"View sample CSV",
+          href:"#/pipeline",
+          action:"Open dashboard",
           status:"Active"
         }
       ]
@@ -335,18 +333,18 @@ export const copy = {
       eyebrow:"About",
       h1a:"I build systems.", h1b:"And I write about the rest.",
       lead:"Data analyst and developer. On one side, what I build. On the other, what I think. Pick where to start.",
-      portfolioLabel:"The work", portfolioTitulo:"Portfolio",
+      portfolioLabel:"01 · The work", portfolioTitulo:"Portfolio",
       portfolioTexto:"Automation, BI and integrations that replaced entire manual routines. With measured numbers, not estimates.",
       portfolioRodape:"Projects, experience and contact",
-      blogLabel:"The ideas", blogTitulo:"Blog",
+      blogLabel:"02 · Reflections", blogTitulo:"Blog",
       blogTexto:"Where different views meet. Technology, business, culture, society.",
       blogUltimo:"Latest", blogVazio:"Coming soon",
-      jogoLabel:"04 · Games", jogoTitulo:"Juramento de 20 Anos",
-      jogoTexto:"A narrative RPG I am building, in Portuguese. Memory, war and choices that close paths.",
-      jogoRodape:"In development · access key required",
-      estudosLabel:"03 · Study projects", estudosTitulo:"Simulator and data pipeline",
-      estudosTexto:"Self-improvement experiments and data engineering: an interactive demo and a daily pipeline for Power BI.",
-      estudosRodape:"Simulator · Weather, crypto and economy"
+      jogoLabel:"04 · The fun", jogoTitulo:"Games",
+      jogoTexto:"A few games I am developing, like the narrative RPG Juramento de 20 Anos. When I finish them, I will open access.",
+      jogoRodape:"In development · locked access",
+      estudosLabel:"03 · Side projects", estudosTitulo:"Studies",
+      estudosTexto:"Experiments and side projects where I learn by building: simulators, data pipelines, widgets and whatever comes next.",
+      estudosRodape:"Simulator · Data pipeline · Widget"
     },
     blog:{
       nav:"Blog",

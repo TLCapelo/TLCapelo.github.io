@@ -26,8 +26,6 @@ export default function Estudos({ t }){
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
        {project.action && project.href && <a href={project.href} className="inline-flex items-center gap-2 rounded-full bg-lime-300 px-4 py-2 text-sm font-bold text-black transition hover:bg-lime-200">{project.action}<ArrowUpRight size={16}/></a>}
-       {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-black/20 px-4 py-2 text-sm font-bold transition hover:bg-black/5">GitHub<ArrowUpRight size={16}/></a>}
-       {project.demo && <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-black/20 px-4 py-2 text-sm font-bold transition hover:bg-black/5">{project.demoLabel}<ArrowUpRight size={16}/></a>}
        {project.status && <span className="rounded-full bg-lime-300 px-3 py-2 text-xs font-bold text-black">{project.status}</span>}
       </div>
      </div>
