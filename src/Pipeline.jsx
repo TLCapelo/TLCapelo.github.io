@@ -23,6 +23,8 @@ const TXT = {
   emMes: "no mês", em30: "em 30 dias", em12: "em 12 meses", acum12: "acumulado em 12 meses", alertaNormal: "dentro do padrão", alertaAlerta: "fora do padrão (±2σ)",
   detalheJanela: { daily: "Últimos 6 meses", monthly: "Últimos 36 meses" }, mediaMovel: "Média de 30 dias", acumulado: "Acumulado 12 meses", mensal: "Variação mensal",
   atualizadoEm: "Dado de",
+  agora: "Agora", agoraEm: "Medido às", sensacao: "Sensação", mapaSubAgora: "Temperatura de agora, atualizada a cada 5 minutos. Clique numa cidade.", agoraErro: "Tempo real indisponível; mostrando a média do dia do pipeline.", mediaDia: "média do dia",
+  wmo: { 0: "Céu limpo", 1: "Quase limpo", 2: "Parcialmente nublado", 3: "Nublado", 45: "Neblina", 48: "Neblina", 51: "Garoa fraca", 53: "Garoa", 55: "Garoa forte", 61: "Chuva fraca", 63: "Chuva", 65: "Chuva forte", 80: "Pancadas fracas", 81: "Pancadas", 82: "Pancadas fortes", 95: "Trovoadas", 96: "Trovoadas com granizo", 99: "Trovoadas com granizo" },
   coletadoEm: "Coletado em", ultimoDado: "Dado mais recente", ate: "a",
   dividaDif: "Diferença (ativos do governo)", dividaTabela: "Últimos 12 meses", mes: "Mês", bruta: "Bruta", liquida: "Líquida",
   notas: {
@@ -55,7 +57,7 @@ const TXT = {
   fonteCab: ["Fonte", "O que entrega", "Frequência"],
   fonteLinhas: [
    ["Open-Meteo", "Temperatura, chuva, vento, umidade, UV e radiação de 10 cidades brasileiras", "A cada 3 horas"],
-   ["CoinGecko", "Preço, valor de mercado, volume e variação 24h/7d/30d de 10 criptomoedas", "A cada 3 horas"],
+   ["CoinGecko", "Preço, valor de mercado, volume e variação 24h/7d/30d de 7 criptomoedas", "A cada 3 horas"],
    ["BCB / SGS", "Selic, CDI, dólar, euro, IPCA, IGP-M, PIB, desemprego e mais", "A cada 3 horas"]
   ],
   stack: "Tecnologias",
@@ -84,6 +86,8 @@ const TXT = {
   emMes: "month over month", em30: "in 30 days", em12: "in 12 months", acum12: "accumulated in 12 months", alertaNormal: "within the usual range", alertaAlerta: "outside the usual range (±2σ)",
   detalheJanela: { daily: "Last 6 months", monthly: "Last 36 months" }, mediaMovel: "30-day average", acumulado: "12-month accumulated", mensal: "Monthly change",
   atualizadoEm: "Data from",
+  agora: "Now", agoraEm: "Measured at", sensacao: "Feels like", mapaSubAgora: "Temperature right now, refreshed every 5 minutes. Click a city.", agoraErro: "Real time unavailable; showing the pipeline's daily mean.", mediaDia: "daily mean",
+  wmo: { 0: "Clear sky", 1: "Mostly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Fog", 48: "Fog", 51: "Light drizzle", 53: "Drizzle", 55: "Heavy drizzle", 61: "Light rain", 63: "Rain", 65: "Heavy rain", 80: "Light showers", 81: "Showers", 82: "Heavy showers", 95: "Thunderstorm", 96: "Thunderstorm with hail", 99: "Thunderstorm with hail" },
   coletadoEm: "Collected on", ultimoDado: "Latest data point", ate: "to",
   dividaDif: "Difference (government assets)", dividaTabela: "Last 12 months", mes: "Month", bruta: "Gross", liquida: "Net",
   notas: {
@@ -116,7 +120,7 @@ const TXT = {
   fonteCab: ["Source", "What it provides", "Frequency"],
   fonteLinhas: [
    ["Open-Meteo", "Temperature, rain, wind, humidity, UV and radiation for 10 Brazilian cities", "Every 3 hours"],
-   ["CoinGecko", "Price, market cap, volume and 24h/7d/30d change for 10 cryptocurrencies", "Every 3 hours"],
+   ["CoinGecko", "Price, market cap, volume and 24h/7d/30d change for 7 cryptocurrencies", "Every 3 hours"],
    ["BCB / SGS", "Selic, CDI, USD, EUR, IPCA, IGP-M, GDP, unemployment and more", "Every 3 hours"]
   ],
   stack: "Technologies",
@@ -328,6 +332,27 @@ function MapaBrasil({ cidades, selecionada, onSelect, t, loc }) {
 }
 
 // ---------- clima ----------
+// Temperatura de agora direto da Open-Meteo (uma requisicao para todas as cidades).
+function useAgora(pontos) {
+ const [estado, setEstado] = useState({ ok: false, erro: false, por: {} });
+ const chave = pontos.map(p => `${p.lat},${p.lon}`).join("|");
+ useEffect(() => {
+  if (!pontos.length) return;
+  let vivo = true;
+  const busca = () => {
+   const url = `https://api.open-meteo.com/v1/forecast?latitude=${pontos.map(p => p.lat).join(",")}&longitude=${pontos.map(p => p.lon).join(",")}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m,weather_code&timezone=auto`;
+   fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => {
+    const lista = Array.isArray(j) ? j : [j];
+    const por = {}; pontos.forEach((p, i) => { if (lista[i]?.current) por[p.city] = lista[i].current; });
+    if (vivo) setEstado({ ok: Object.keys(por).length > 0, erro: false, por });
+   }).catch(() => vivo && setEstado(s => ({ ...s, erro: !s.ok })));
+  };
+  busca(); const id = setInterval(busca, 300000);
+  return () => { vivo = false; clearInterval(id); };
+ }, [chave]);
+ return estado;
+}
+
 function Clima({ d, t, loc }) {
  const cidades = useMemo(() => [...new Set(d.clima.map(r => r.city))], [d]);
  const [cidade, setCidade] = useState(cidades[0]);
@@ -337,15 +362,26 @@ function Clima({ d, t, loc }) {
  const hoje = linhas[linhas.length - 1];
  const pontos = d.clima.filter(r => r.date === ultimo).map(r => ({ city: r.city, lat: num(r.latitude), lon: num(r.longitude), v: num(r.temperature_2m_mean) }));
  const f = (v, u, dig = 0) => v == null ? "—" : `${v.toLocaleString(loc, { maximumFractionDigits: dig })}${u}`;
+ const agora = useAgora(pontos);
+ const cur = agora.por[cidade];
+ const pontosMapa = pontos.map(p => ({ ...p, v: agora.por[p.city]?.temperature_2m ?? p.v }));
  return <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
   <Cartao>
    <Rotulo>{t.mapaTitulo}</Rotulo>
-   <p className="mt-2 mb-4 text-sm text-zinc-400">{t.mapaSub}</p>
-   <MapaBrasil cidades={pontos} selecionada={cidade} onSelect={setCidade} t={t} loc={loc}/>
+   <p className="mt-2 mb-4 text-sm text-zinc-400">{agora.ok ? t.mapaSubAgora : t.mapaSub}</p>
+   {agora.erro && <p className="mb-3 text-xs text-amber-300">{t.agoraErro}</p>}
+   <MapaBrasil cidades={pontosMapa} selecionada={cidade} onSelect={setCidade} t={t} loc={loc}/>
   </Cartao>
   <Cartao>
    <Rotulo>{t.cidade}</Rotulo>
    <p className="mt-3 text-3xl font-black tracking-tight">{cidade}</p>
+   {cur && <div className="mt-4 rounded-2xl border border-lime-300/30 bg-lime-300/[.06] p-5">
+    <div className="flex items-end justify-between gap-4">
+     <div><p className="text-xs uppercase tracking-wider text-lime-300">{t.agora}</p><p className="mt-1 text-5xl font-black tabular-nums tracking-tight">{f(cur.temperature_2m, "°C", 1)}</p></div>
+     <div className="text-right text-sm text-zinc-300"><p>{t.wmo[cur.weather_code] || "—"}</p><p className="mt-1 text-xs text-zinc-500">{t.sensacao} {f(cur.apparent_temperature, "°C", 1)}</p></div>
+    </div>
+    <p className="mt-3 text-xs text-zinc-400">{t.umid} {f(cur.relative_humidity_2m, "%")} · {t.vento.replace(" máx", "").replace("Max ", "")} {f(cur.wind_speed_10m, " km/h", 1)} · {t.chuva} {f(cur.precipitation, " mm", 1)} · {t.agoraEm} {cur.time.slice(11, 16)}</p>
+   </div>}
    {hoje && <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
     {[[t.tmax, f(num(hoje.temperature_2m_max), "°C", 1)], [t.tmin, f(num(hoje.temperature_2m_min), "°C", 1)], [t.chuva, f(num(hoje.precipitation_sum), " mm", 1)], [t.umid, f(num(hoje.relative_humidity_2m_mean), "%")], [t.uv, f(num(hoje.uv_index_max), "", 1)], [t.vento, f(num(hoje.windspeed_10m_max), " km/h", 1)]].map(([k, v]) => <div key={k} className="rounded-2xl bg-white/[.05] p-4"><p className="text-xs uppercase tracking-wider text-zinc-500">{k}</p><p className="mt-1 text-2xl font-black tabular-nums">{v}</p></div>)}
    </div>}
@@ -584,7 +620,7 @@ export default function Pipeline({ lang, setLang }) {
     <h1 className="mt-5 max-w-4xl text-5xl font-black leading-[.92] tracking-[-.05em] md:text-8xl">{t.titulo}</h1>
     <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-400 md:text-xl">{t.lead}</p>
     <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-zinc-400">
-     {[["10", t.cidades], ["10", t.moedas], ["12", t.series], ["3", t.apis]].map(([n, k]) => <span key={k}><b className="text-2xl font-black text-white">{n}</b> {k}</span>)}
+     {[["10", t.cidades], ["7", t.moedas], ["12", t.series], ["3", t.apis]].map(([n, k]) => <span key={k}><b className="text-2xl font-black text-white">{n}</b> {k}</span>)}
     </div>
     <p className="mt-4 text-xs text-zinc-500">{t.atualizado}: {quando}</p>
    </div>
