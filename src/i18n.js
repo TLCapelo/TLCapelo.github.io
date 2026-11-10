@@ -40,6 +40,7 @@ export const copy = {
       {period:"2023 — 2024", place:"Russas, CE", role:"Estagiário em Análise de Dados", org:"DATTA BÚSINESS", text:"Onde a parte de dados começou. Análise de tráfego e campanhas, relatórios analíticos de performance e gestão de campanhas internacionais, incluindo reuniões técnicas com clientes em inglês.", tags:["Google Ads","Google Analytics","Inglês"]}
     ],
     education:[
+      {course:"Certificação Lean Seis Sigma Yellow Belt", school:"FM2S Educação e Consultoria", period:"2026"},
       {course:"Análise e Desenvolvimento de Sistemas", school:"Estácio", period:"2025 — 2027 · em andamento"},
       {course:"Data Analytics", school:"Digital College Brasil", period:"2024 — 2025"},
       {course:"Engenharia de Software", school:"Universidade Federal do Ceará", period:"2019 — 2024"}
@@ -263,6 +264,7 @@ export const copy = {
       {period:"2023 — 2024", place:"Russas, Brazil", role:"Data Analysis Intern", org:"DATTA BÚSINESS", text:"Where the data side started. Traffic and campaign analysis, performance reporting and management of international campaigns, including technical client meetings in English.", tags:["Google Ads","Google Analytics","English"]}
     ],
     education:[
+      {course:"Lean Six Sigma Yellow Belt Certification", school:"FM2S Educação e Consultoria", period:"2026"},
       {course:"Systems Analysis and Development", school:"Estácio University", period:"2025 — 2027 · in progress"},
       {course:"Data Analytics", school:"Digital College Brasil", period:"2024 — 2025"},
       {course:"Software Engineering", school:"Federal University of Ceará", period:"2019 — 2024"}
